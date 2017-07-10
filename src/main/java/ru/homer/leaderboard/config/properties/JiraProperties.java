@@ -1,14 +1,13 @@
-package ru.homer.leaderboard.entity;
+package ru.homer.leaderboard.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+@Data
 @Component
 @ConfigurationProperties(prefix = "jira")
-@Data
-public class JiraClient {
+public class JiraProperties {
 
     private String url;
     private String login;

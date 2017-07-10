@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.homer.leaderboard.entity.JiraClient;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Rollback
-public class JiraClientConfigurationTest {
+public class JiraPropertiesConfigurationTest {
 
     @Autowired
     private JiraClientConfiguration jiraClientConfiguration;
