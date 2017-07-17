@@ -18,6 +18,21 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<inceptionYear>2017</inceptionYear>
+
+	<developers>
+		<developer>
+			<id>vmurzakov</id>
+			<name>Vadim Murzakov</name>
+			<email>vadim.murzakov@homecredit.ru</email>
+			<organization>HCFB</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+3</timezone>
+		</developer>
+	</developers>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
