@@ -3,6 +3,7 @@ package ru.homer.leaderboard.config;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import lombok.Data;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import ru.homer.leaderboard.config.properties.JiraProperties;
 import java.net.URI;
 
 @Configuration
+@Data
 public class JiraClientConfiguration {
 
     private final JiraProperties jiraProperties;

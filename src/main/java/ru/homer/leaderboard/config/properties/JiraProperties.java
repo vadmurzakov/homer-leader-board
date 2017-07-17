@@ -12,5 +12,7 @@ public class JiraProperties {
     private String url;
     private String login;
     private String password;
+    private int maxResults;
+    private int startAt;
 
 }
