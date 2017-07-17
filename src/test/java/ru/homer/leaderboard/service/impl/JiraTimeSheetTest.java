@@ -1,6 +1,7 @@
 package ru.homer.leaderboard.service.impl;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.Worklog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import ru.homer.leaderboard.service.TimeSheet;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -36,4 +38,22 @@ public class JiraTimeSheetTest {
         assertTrue(issues.size() > 0);
     }
 
+    @Test
+    public void getIssueByKey() throws Exception {
+        Issue issue = jiraTimeSheet.getIssueByKey("SC-2666");
+        assertNotNull(issue);
+    }
+
+    @Test
+    public void getIssueById() throws Exception {
+        Issue issue = jiraTimeSheet.getIssueById("708738");
+        assertNotNull(issue);
+    }
+
+    @Test
+    public void getWorklogByIssue() throws Exception {
+        Issue issue = jiraTimeSheet.getIssueByKey("SC-2666");
+        List<Worklog> worklogs = jiraTimeSheet.getWorklogsByIssue(issue);
+        assertTrue(worklogs.size() > 0);
+    }
 }

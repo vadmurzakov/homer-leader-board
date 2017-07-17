@@ -3,6 +3,7 @@ package ru.homer.leaderboard.service.impl;
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
+import com.atlassian.jira.rest.client.api.domain.Worklog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.homer.leaderboard.config.JiraClientConfiguration;
@@ -71,4 +72,23 @@ public class JiraTimeSheet implements TimeSheet {
         ).claim();
     }
 
+    @Override
+    public Issue getIssueByKey(String key) {
+        return jiraRestClient.getIssueClient().getIssue(key).claim();
+    }
+
+    @Override
+    public Issue getIssueById(String id) {
+        return jiraRestClient.getIssueClient().getIssue(id).claim();
+    }
+
+    @Override
+    public List<Worklog> getWorklogsByIssue(Issue issue) {
+        List<Worklog> worklogs = new ArrayList<>();
+        if (issue != null) {
+            issue.getWorklogs().forEach(Worklog -> worklogs.add(Worklog));
+            return worklogs;
+        }
+        return worklogs;
+    }
 }
