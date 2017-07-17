@@ -20,8 +20,8 @@ public class JiraPropertiesConfigurationTest {
 
     @Test
     public void jiraRestClientTest() throws Exception {
-        JiraRestClient jiraRestClient = jiraClientConfiguration.jiraRestClient();
-        assertNotNull(jiraRestClient);
+        JiraRestClient jiraClient = jiraClientConfiguration.jiraRestClient();
+        assertNotNull(jiraClient);
     }
 
 }
