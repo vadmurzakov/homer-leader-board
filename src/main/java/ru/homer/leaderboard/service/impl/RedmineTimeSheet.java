@@ -3,6 +3,7 @@ package ru.homer.leaderboard.service.impl;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Worklog;
 import org.springframework.stereotype.Service;
+import ru.homer.leaderboard.entity.IssueDto;
 import ru.homer.leaderboard.service.TimeSheet;
 
 import java.util.List;
@@ -13,22 +14,22 @@ import java.util.List;
 @Service
 public class RedmineTimeSheet implements TimeSheet {
     @Override
-    public List<Issue> getAllIssuesByUser(String user) {
+    public List<IssueDto> getAllIssuesByUser(String user) {
         return null;
     }
 
     @Override
-    public List<Issue> getAllIssuesForLastMonthByUser(String user, int month) {
+    public List<IssueDto> getAllIssuesForLastMonthByUser(String user, int month) {
         return null;
     }
 
     @Override
-    public Issue getIssueByKey(String key) {
+    public IssueDto getIssueByKey(String key) {
         return null;
     }
 
     @Override
-    public Issue getIssueById(String id) {
+    public IssueDto getIssueById(String id) {
         return null;
     }
 

@@ -2,6 +2,7 @@ package ru.homer.leaderboard.service;
 
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Worklog;
+import ru.homer.leaderboard.entity.IssueDto;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface TimeSheet {
      * @param user логин пользователя
      * @return список задач
      */
-    public List<Issue> getAllIssuesByUser(String user);
+    public List<IssueDto> getAllIssuesByUser(String user);
 
     /**
      * Получаем все задачи пользователя за последние n-месяцев
@@ -25,24 +26,27 @@ public interface TimeSheet {
      * @param user  логин пользователя
      * @return список задач
      */
-    public List<Issue> getAllIssuesForLastMonthByUser(String user, int month);
+    public List<IssueDto> getAllIssuesForLastMonthByUser(String user, int month);
 
     /**
      * Получить задачу по ключу
+     *
      * @param key ключ, типа: SC-2666, HOMER-1234
      * @return IssueDto задача
      */
-    public Issue getIssueByKey(String key);
+    public IssueDto getIssueByKey(String key);
 
     /**
      * Получить задачу по id
+     *
      * @param id задачи
      * @return IssueDto задача
      */
-    public Issue getIssueById(String id);
+    public IssueDto getIssueById(String id);
 
     /**
      * Возвращает список журнала работ текущей задачи
+     *
      * @param issue задача
      * @return журнал работ
      */

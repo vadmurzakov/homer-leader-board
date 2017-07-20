@@ -30,7 +30,7 @@ public class JqlRequest {
                     "issuetype",
                     "created",
                     "updated",
-                    "worklogs"
+                    "worklog"
             )
     );
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import ru.homer.leaderboard.config.JiraClientConfiguration;
 import ru.homer.leaderboard.config.properties.JiraProperties;
 import ru.homer.leaderboard.config.properties.JqlRequest;
+import ru.homer.leaderboard.entity.IssueDto;
+import ru.homer.leaderboard.mapper.Mapper;
 import ru.homer.leaderboard.service.TimeSheet;
 
 import java.util.ArrayList;
@@ -22,37 +24,47 @@ public class JiraTimeSheet implements TimeSheet {
 
     private final JiraClientConfiguration jiraClientConfiguration;
     private final JqlRequest jqlRequest;
+    private final Mapper issueMapper;
     private JiraRestClient jiraRestClient;
     private JiraProperties jiraProperties;
 
     @Autowired
-    public JiraTimeSheet(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest) {
+    public JiraTimeSheet(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper issueMapper) {
         this.jiraClientConfiguration = jiraClientConfiguration;
         this.jqlRequest = jqlRequest;
+        this.issueMapper = issueMapper;
         this.jiraRestClient = jiraClientConfiguration.jiraRestClient();
         this.jiraProperties = jiraClientConfiguration.getJiraProperties();
     }
 
     @Override
-    public List<Issue> getAllIssuesByUser(String user) {
+    public List<IssueDto> getAllIssuesByUser(String user) {
         return getAllIssuesByUser(user, null);
     }
 
     @Override
-    public List<Issue> getAllIssuesForLastMonthByUser(String user, int month) {
+    public List<IssueDto> getAllIssuesForLastMonthByUser(String user, int month) {
         return getAllIssuesByUser(user, month);
     }
 
-    private List<Issue> getAllIssuesByUser(String user, Integer month) {
+    private List<IssueDto> getAllIssuesByUser(String user, Integer month) {
         List<Issue> issues = new ArrayList<>();
         SearchResult search;
+
         int startAt = jiraProperties.getStartAt();
         do {
             search = getIssuesByUser(user, month, startAt);
             search.getIssues().forEach(Issue -> issues.add(Issue));
             startAt += jiraProperties.getMaxResults();
         } while (search.getTotal() > 0 && startAt < search.getTotal());
-        return issues;
+
+        List<IssueDto> issueDtos = new ArrayList<>();
+        for (Issue issue : issues) {
+            issueDtos.add(issueMapper.mapIssueDto(issue));
+            issueDtos.get(issueDtos.size() - 1).setWorkTime(getTimeInWorklogByIssue(issue, user));
+        }
+
+        return issueDtos;
     }
 
     /**
@@ -72,14 +84,44 @@ public class JiraTimeSheet implements TimeSheet {
         ).claim();
     }
 
-    @Override
-    public Issue getIssueByKey(String key) {
-        return jiraRestClient.getIssueClient().getIssue(key).claim();
+    private int getTimeInWorklogByIssue(Issue issue) {
+        return getTimeInWorklogByIssue(issue, null);
+    }
+
+    private int getTimeInWorklogByIssue(Issue issue, String user) {
+        int timeInMins = 0;
+        List<Worklog> worklogs = new ArrayList<>();
+        if (user != null) {
+            issue.getWorklogs().forEach(Worklog -> {
+                if (user.equals(Worklog.getAuthor().getName())) {
+                    worklogs.add(Worklog);
+                }
+            });
+        } else {
+            issue.getWorklogs().forEach(Worklog -> worklogs.add(Worklog));
+        }
+
+        for (Worklog worklog : worklogs) {
+            timeInMins += worklog.getMinutesSpent();
+        }
+
+        return timeInMins;
     }
 
     @Override
-    public Issue getIssueById(String id) {
-        return jiraRestClient.getIssueClient().getIssue(id).claim();
+    public IssueDto getIssueByKey(String key) {
+        Issue issue = jiraRestClient.getIssueClient().getIssue(key).claim();
+        IssueDto issueDto = issueMapper.mapIssueDto(issue);
+        issueDto.setWorkTime(getTimeInWorklogByIssue(issue));
+        return issueDto;
+    }
+
+    @Override
+    public IssueDto getIssueById(String id) {
+        Issue issue = jiraRestClient.getIssueClient().getIssue(id).claim();
+        IssueDto issueDto = issueMapper.mapIssueDto(issue);
+        issueDto.setWorkTime(getTimeInWorklogByIssue(issue));
+        return issueDto;
     }
 
     @Override
