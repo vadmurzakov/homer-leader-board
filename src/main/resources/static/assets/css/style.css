@@ -1,0 +1,21 @@
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+a {
+    color: #333;
+}
+
+a:hover,
+a:focus{
+    text-decoration: none;
+}
+
+.page-header h1 {
+    cursor: pointer;
+    width: auto;
+}
+
+.right {
+    float: right;
+}
