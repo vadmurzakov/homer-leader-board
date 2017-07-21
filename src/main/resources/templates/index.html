@@ -4,6 +4,8 @@
     <meta charset="UTF-8"/>
     <title>Leader Board</title>
 
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=cyrillic" rel="stylesheet"/>
+
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/assets/css/style.css}"/>
 
@@ -13,9 +15,8 @@
 
 <div class="container">
     <div class="page-header">
-        <h1><a href="/">LeaderBoard</a></h1>
+        <h1><a href="/">Статистика по ЦК Homer</a></h1>
         <p class="lead">
-            Статистика задач в ЦК Гомер
             <!-- <span class="right" ng-show="!isAuthorized"><a href="#!/login">войти</a></span> -->
         </p>
     </div>
@@ -31,7 +32,9 @@
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/bower_components/angular/angular.min.js}"></script>
 <script th:src="@{/bower_components/angular-route/angular-route.min.js}"></script>
+<script th:src="@{/bower_components/angular-animate/angular-animate.min.js}"></script>
 <script th:src="@{/bower_components/angular-smart-table/dist/smart-table.min.js}"></script>
+<script th:src="@{/assets/lib/ui-bootstrap-tpls-2.5.0.min.js}"></script>
 <script th:src="@{/assets/js/app.js}"></script>
 <script th:src="@{/assets/js/controller/HomeController.js}"></script>
 </body>
