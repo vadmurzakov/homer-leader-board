@@ -1,5 +1,6 @@
 package ru.homer.leaderboard.entity;
 
+import com.atlassian.jira.rest.client.api.domain.IssueType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class IssueDto {
     @JsonBackReference
     private User user;
     private String basicProject;
-    private String issueType;
+    private IssueType issueType;
     private String summary;
     @JsonIgnore
     private DateTime creationDate;

@@ -15,7 +15,7 @@ public class IssueMapper implements Mapper {
         issueDto.setIdIssue(issue.getId());
         issueDto.setBasicProject(issue.getProject().getName());
         issueDto.setSummary(issue.getSummary());
-        issueDto.setIssueType(issue.getIssueType().getName());
+        issueDto.setIssueType(issue.getIssueType());
         issueDto.setCreationDate(issue.getCreationDate());
         issueDto.setKey(issue.getKey());
         return issueDto;
