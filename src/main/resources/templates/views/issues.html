@@ -1,0 +1,26 @@
+<uib-progressbar value="progressBar" min="0" max="100" type="success" ng-show="progressBar != 100" class="progress-striped active animate-show-hide"><b>{{progressBar}}%</b></uib-progressbar>
+
+<uib-tabset active="active">
+    <uib-tab index="$index" ng-repeat="tab in tabs" heading="{{tab.title}}">
+        <table st-table="rowCollection" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Проект</th>
+                <th>Задача</th>
+                <th>Тип задачи</th>
+                <th>Название</th>
+                <th>Затраченное время</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in tab.issues">
+                <td>{{issue.basicProject}}</td>
+                <td>{{issue.key}}</td>
+                <td>{{issue.issueType.name}}</td>
+                <td>{{issue.summary}}</td>
+                <td>{{issue.workTime}} мин</td>
+            </tr>
+            </tbody>
+        </table>
+    </uib-tab>
+</uib-tabset>

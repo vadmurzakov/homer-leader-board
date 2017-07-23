@@ -38,3 +38,9 @@ a:focus{
     opacity: 1;
     padding: 10px;
 }
+
+.beta img {
+    width: 100px;
+    position: fixed;
+    right: 0;
+}
