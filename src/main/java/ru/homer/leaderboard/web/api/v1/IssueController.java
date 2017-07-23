@@ -1,10 +1,7 @@
 package ru.homer.leaderboard.web.api.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.homer.leaderboard.entity.IssueDto;
 import ru.homer.leaderboard.service.TimeSheet;
 
@@ -13,6 +10,7 @@ import java.util.List;
 /**
  * Created by vadmurzakov on 20.07.17.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/issue")
 public class IssueController {
