@@ -46,7 +46,7 @@ public class TeamStatistic implements Statistic {
     @Override
     public List<ru.homer.leaderboard.entity.Statistic> getStatisticsOnTeamFor6Month() {
         return teamHomer.parallelStream()
-                .map(username -> {
+                .map((String username) -> {
                     ru.homer.leaderboard.entity.Statistic statistic = new ru.homer.leaderboard.entity.Statistic();
                     List<IssueDto> issues = jiraTimeSheet.getAllIssuesForLastMonthByUser(username, 6);
 
@@ -61,18 +61,22 @@ public class TeamStatistic implements Statistic {
                     statistic.setTimeOnSimpleBugs(calcTimeFilterByType(IssueType.SIMPLE_BUG, issues));
                     statistic.setTimeOnAllBugs(statistic.getTimeOnProductBugs() + statistic.getTimeOnSimpleBugs());
 
-            double hourPerProductBug;
-            double hourPerSimpleBug;
-            if (statistic.getCountProductBugs() != 0 && statistic.getCountSimpleBugs() != 0) {
-                hourPerProductBug = statistic.getTimeOnProductBugs() / 60 / (double)statistic.getCountProductBugs();
-                hourPerSimpleBug = statistic.getTimeOnSimpleBugs() / 60 / (double)statistic.getCountSimpleBugs();
-            } else {
-                hourPerProductBug = 0;
-                hourPerSimpleBug = 0;
-            }
+                    double hourPerProductBug;
+                    double hourPerSimpleBug;
 
-            statistic.setHourPerProductBug(new BigDecimal(hourPerProductBug).setScale(1, RoundingMode.UP).doubleValue());
-            statistic.setHourPerSimpleBug(new BigDecimal(hourPerSimpleBug).setScale(1, RoundingMode.UP).doubleValue());
+                    try {
+                        hourPerSimpleBug = statistic.getTimeOnSimpleBugs() / 60 / (double)statistic.getCountSimpleBugs();
+                        statistic.setHourPerSimpleBug(new BigDecimal(hourPerSimpleBug).setScale(1,RoundingMode.UP).doubleValue());
+                    } catch (NumberFormatException ex) {
+                        statistic.setHourPerSimpleBug(0.0);
+                    }
+
+                    try {
+                        hourPerProductBug = statistic.getTimeOnProductBugs() / 60 / (double)statistic.getCountProductBugs();
+                        statistic.setHourPerProductBug(new BigDecimal(hourPerProductBug).setScale(1,RoundingMode.UP).doubleValue());
+                    } catch (NumberFormatException ex) {
+                        statistic.setHourPerProductBug(0.0);
+                    }
 
                     //todo тут надо посчитать все время за все задачи, пока тут только баги
                     statistic.setAllTimeOnIssues(statistic.getTimeOnAllBugs());
