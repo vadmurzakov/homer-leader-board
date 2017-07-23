@@ -10,12 +10,13 @@ import java.util.List;
  * Created by vadmurzakov on 20.07.17.
  */
 @Data
-public class User {
+public class UserDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String fullname;
+    private String email;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<IssueDto> issueDtos;

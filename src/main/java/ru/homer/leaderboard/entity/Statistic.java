@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class Statistic {
-    private String username;
+    private UserDto user;
     private int countIssues;            //всего задач
     private Long allTimeOnIssues;       //всего потрачено минут на задачи
 

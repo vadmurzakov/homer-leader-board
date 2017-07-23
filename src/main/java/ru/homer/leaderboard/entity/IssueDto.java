@@ -21,7 +21,7 @@ public class IssueDto {
     @OneToOne
     @JoinColumn(name = "idUser")
     @JsonBackReference
-    private User user;
+    private UserDto user;
     private String basicProject;
     private IssueType issueType;
     private String summary;
