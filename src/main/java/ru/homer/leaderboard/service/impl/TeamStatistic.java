@@ -8,6 +8,8 @@ import ru.homer.leaderboard.enums.IssueTypeByBug;
 import ru.homer.leaderboard.service.Statistic;
 import ru.homer.leaderboard.service.TimeSheet;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +21,21 @@ import java.util.List;
 public class TeamStatistic implements Statistic {
 
     private final TimeSheet jiraTimeSheet;
-    private List<String> teamHomer = new ArrayList<>(Arrays.asList("eplotnikov", "vmurzakov", "mnikolaenko", "ytrunov", "rnemykin", "vuvarov", "akovlyashenko", "ilysenko"));
+    private List<String> teamHomer = new ArrayList<>(
+            Arrays.asList(
+                    "eplotnikov",
+                    "vmurzakov",
+                    "mnikolaenko",
+                    "vuvarov",
+                    "ytrunov",
+                    "rnemykin",
+                    "akovlyashenko",
+                    "ilysenko",
+                    "kafonin",
+                    "ismorodin",
+                    "kilichev",
+                    "nbloshkin"
+            ));
 
     @Autowired
     public TeamStatistic(TimeSheet jiraTimeSheet) {
@@ -44,8 +60,18 @@ public class TeamStatistic implements Statistic {
             statistic.setTimeOnSimpleBugs(calcTimeFilterByType(IssueType.SIMPLE_BUG, issues));
             statistic.setTimeOnAllBugs(statistic.getTimeOnProductBugs() + statistic.getTimeOnSimpleBugs());
 
-            statistic.setHourPerProductBug((double) (statistic.getTimeOnProductBugs() / 60 / statistic.getCountProductBugs()));
-            statistic.setHourPerSimpleBug((double) (statistic.getTimeOnSimpleBugs() / 60 / statistic.getCountSimpleBugs()));
+            double hourPerProductBug;
+            double hourPerSimpleBug;
+            if (statistic.getCountProductBugs() != 0 && statistic.getCountSimpleBugs() != 0) {
+                hourPerProductBug = statistic.getTimeOnProductBugs() / 60 / (double)statistic.getCountProductBugs();
+                hourPerSimpleBug = statistic.getTimeOnSimpleBugs() / 60 / (double)statistic.getCountSimpleBugs();
+            } else {
+                hourPerProductBug = 0;
+                hourPerSimpleBug = 0;
+            }
+
+            statistic.setHourPerProductBug(new BigDecimal(hourPerProductBug).setScale(1, RoundingMode.UP).doubleValue());
+            statistic.setHourPerSimpleBug(new BigDecimal(hourPerSimpleBug).setScale(1, RoundingMode.UP).doubleValue());
 
             //todo тут надо посчитать все время за все задачи, пока тут только баги
             statistic.setAllTimeOnIssues(statistic.getTimeOnAllBugs());
