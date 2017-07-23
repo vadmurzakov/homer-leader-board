@@ -7,6 +7,8 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
     $scope.progressBar = 0;
     $scope.tabs = [];
 
+    var HOST_URI = /^(https?:\/\/)?([\da-z\.-:]+)+/.exec(window.location.href)[0];
+
     users = [
         {username: 'vmurzakov', fullname: 'Мурзаков Вадим'},
         {username: 'vuvarov', fullname: 'Уваров Владимир'},
@@ -15,7 +17,7 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
     ];
 
     users.forEach(function (item) {
-        $http.get('http://localhost:8080/api/v1/issue/' + item.username + '/month/1')
+        $http.get(HOST_URI + '/api/v1/issue/' + item.username + '/month/1')
             .then(function onSuccess(response) {
                 $scope.tabs.push({
                     title: item.fullname,
