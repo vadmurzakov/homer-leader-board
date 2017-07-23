@@ -27,8 +27,8 @@ public class StatisticController {
     }
 
     @RequestMapping(value = "/{username}/month/{countMonth}", method = RequestMethod.GET)
-    public Statistic getStatisticsByUser(@PathVariable String username, @PathVariable int counMonth) {
-        return teamStatistic.getStatisticsByUser(username, counMonth);
+    public Statistic getStatisticsByUser(@PathVariable String username, @PathVariable int countMonth) {
+        return teamStatistic.getStatisticsByUser(username, countMonth);
     }
 
 }
