@@ -18,6 +18,14 @@ public interface Statistic {
     public List<ru.homer.leaderboard.entity.Statistic> getStatisticsOnTeamFor6Month();
 
     /**
+     * Возвращает статистику по конкретному пользователю
+     *
+     * @param username логин в jira
+     * @return json
+     */
+    public ru.homer.leaderboard.entity.Statistic getStatisticsByUser(String username, int countMonth);
+
+    /**
      * Считаем количество задач определенного типа из списка задач
      *
      * @param issueType тип задачи, который хотим найти

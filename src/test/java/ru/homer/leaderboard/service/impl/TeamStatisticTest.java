@@ -29,10 +29,18 @@ public class TeamStatisticTest {
     @Autowired
     private TimeSheet jiraTimeSheet;
 
+    private final String USERNAME = "vmurzakov";
+
     @Test
     public void getStatisticsOnTeamFor6Month() throws Exception {
         List<ru.homer.leaderboard.entity.Statistic> statistics = teamStatistic.getStatisticsOnTeamFor6Month();
         assertNotNull(statistics.get(0).getAllTimeOnIssues() > 0);
+    }
+
+    @Test
+    public void getStatisticsByUsername() throws Exception {
+        ru.homer.leaderboard.entity.Statistic statistic = teamStatistic.getStatisticsByUser(USERNAME, 6);
+        assertTrue(statistic.getUser().getUsername().equals(USERNAME));
     }
 
     @Test
@@ -43,7 +51,7 @@ public class TeamStatisticTest {
 
     @Test
     public void calcCountBugFilterByType() throws Exception {
-        List<IssueDto> issues = jiraTimeSheet.getAllIssuesForLastMonthByUser("vmurzakov", 1);
+        List<IssueDto> issues = jiraTimeSheet.getAllIssuesForLastMonthByUser(USERNAME, 1);
         Long count = teamStatistic.calcCountBugFilterByType(IssueType.SIMPLE_BUG, issues);
         assertTrue(count > 0);
     }

@@ -31,4 +31,9 @@ public class IssueController {
     public List<IssueDto> getAllIssueByUser(@PathVariable String user, @PathVariable int month) {
         return jiraTimeSheet.getAllIssuesForLastMonthByUser(user, month);
     }
+
+    @RequestMapping(value = "/key/{key}", method = RequestMethod.GET)
+    public IssueDto getIssueByKey(@PathVariable String key) {
+        return jiraTimeSheet.getIssueByKey(key);
+    }
 }

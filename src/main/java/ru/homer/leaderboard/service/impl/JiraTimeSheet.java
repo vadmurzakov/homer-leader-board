@@ -24,15 +24,15 @@ public class JiraTimeSheet implements TimeSheet {
 
     private final JiraClientConfiguration jiraClientConfiguration;
     private final JqlRequest jqlRequest;
-    private final Mapper issueMapper;
+    private final Mapper mapper;
     private JiraRestClient jiraRestClient;
     private JiraProperties jiraProperties;
 
     @Autowired
-    public JiraTimeSheet(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper issueMapper) {
+    public JiraTimeSheet(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper mapper) {
         this.jiraClientConfiguration = jiraClientConfiguration;
         this.jqlRequest = jqlRequest;
-        this.issueMapper = issueMapper;
+        this.mapper = mapper;
         this.jiraRestClient = jiraClientConfiguration.jiraRestClient();
         this.jiraProperties = jiraClientConfiguration.getJiraProperties();
     }
@@ -60,7 +60,7 @@ public class JiraTimeSheet implements TimeSheet {
 
         List<IssueDto> issueDtos = new ArrayList<>();
         for (Issue issue : issues) {
-            issueDtos.add(issueMapper.mapIssueDto(issue));
+            issueDtos.add(mapper.mapIssueDto(issue));
             issueDtos.get(issueDtos.size() - 1).setWorkTime(getTimeInWorklogByIssue(issue, user));
         }
 
@@ -111,7 +111,7 @@ public class JiraTimeSheet implements TimeSheet {
     @Override
     public IssueDto getIssueByKey(String key) {
         Issue issue = jiraRestClient.getIssueClient().getIssue(key).claim();
-        IssueDto issueDto = issueMapper.mapIssueDto(issue);
+        IssueDto issueDto = mapper.mapIssueDto(issue);
         issueDto.setWorkTime(getTimeInWorklogByIssue(issue));
         return issueDto;
     }
@@ -119,7 +119,7 @@ public class JiraTimeSheet implements TimeSheet {
     @Override
     public IssueDto getIssueById(String id) {
         Issue issue = jiraRestClient.getIssueClient().getIssue(id).claim();
-        IssueDto issueDto = issueMapper.mapIssueDto(issue);
+        IssueDto issueDto = mapper.mapIssueDto(issue);
         issueDto.setWorkTime(getTimeInWorklogByIssue(issue));
         return issueDto;
     }
