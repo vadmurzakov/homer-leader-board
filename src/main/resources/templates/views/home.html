@@ -1,4 +1,6 @@
-<uib-progressbar value="100" min="0" max="100" type="success" ng-show="progressBarShow" class="progress-striped active animate-show-hide"><b>Собираю информацию за пол года...</b></uib-progressbar>
+<uib-progressbar value="progressBar" min="0" max="100" type="success" ng-show="isProgressBarShow" class="progress-striped active animate-show-hide">
+    <b>{{progressBar}}%</b>
+</uib-progressbar>
 
 <table st-table="rowCollection" class="table table-striped">
     <thead>
@@ -12,7 +14,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="statistic in statistics">
-        <td>{{statistic.username}}</td>
+        <td>{{statistic.user.fullname}}</td>
         <td>{{statistic.countProductBugs}} шт за {{(statistic.timeOnProductBugs / 60).toFixed(1)}} ч</td>
         <td>{{statistic.countSimpleBugs}} шт за {{(statistic.timeOnSimpleBugs / 60).toFixed(1)}} ч</td>
         <td>{{statistic.hourPerProductBug}} ч</td>

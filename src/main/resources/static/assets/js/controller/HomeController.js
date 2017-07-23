@@ -1,40 +1,41 @@
 /**
  * Created by vadmurzakov on 20.07.17.
  */
-LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope) {
+LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope, $q) {
     console.log('HomeController');
 
-    $scope.progressBarShow = true;
-    $scope.tabs = [];
+    $scope.progressBar = 0;
+    $scope.statistics = [];
+    $scope.isProgressBarShow = true;
 
     var HOST_URI = /^(https?:\/\/)?([\da-z\.-:]+)+/.exec(window.location.href)[0];
 
-    // users = [
-    //     {username: 'vmurzakov', fullname: 'Мурзаков Вадим'},
-    //     {username: 'vuvarov', fullname: 'Уваров Владимир'},
-    //     {username: 'rnemykin', fullname: 'Немыкин Рома'},
-    //     {username: 'ilysenko', fullname: 'Илья Лысенко'}
-    // ];
-    //
-    // users.forEach(function (item) {
-    //     $http.get(HOST_URI + '/api/v1/issue/' + item.username + '/month/1')
-    //         .then(function onSuccess(response) {
-    //             $scope.tabs.push({
-    //                 title: item.fullname,
-    //                 issues: response.data
-    //             });
-    //             $scope.progressBar += 100 / users.length;
-    //         }, function onError(response) {
-    //             console.error(response);
-    //         });
-    // });
+    users = [
+        "eplotnikov",
+        "vmurzakov",
+        "mnikolaenko",
+        "vuvarov",
+        "ytrunov",
+        "rnemykin",
+        "akovlyashenko",
+        "ilysenko",
+        "kafonin",
+        "ismorodin",
+        "kilichev",
+        "nbloshkin"
+    ];
 
-    $http.get(HOST_URI + '/api/v1/statistic/')
-        .then(function onSuccess(response) {
-            $scope.statistics = response.data;
-            $scope.progressBarShow = false;
-        }, function onError (response) {
-            console.error(response);
-        });
+    users.forEach(function (item) {
+        $http.get(HOST_URI + '/api/v1/statistic/' + item + '/month/6')
+            .then(function onSuccess(response) {
+                $scope.statistics.push(response.data);
+                $scope.progressBar += Math.ceil(100 / users.length);
+                $scope.isProgressBarShow = $scope.progressBar <= 100;
+            }, function onError(response) {
+                console.error(response);
+            });
+    });
+
+
 
 }]);
