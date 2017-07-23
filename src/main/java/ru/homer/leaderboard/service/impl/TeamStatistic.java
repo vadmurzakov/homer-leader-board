@@ -8,7 +8,6 @@ import ru.homer.leaderboard.enums.IssueTypeByBug;
 import ru.homer.leaderboard.service.Statistic;
 import ru.homer.leaderboard.service.TimeSheet;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class TeamStatistic implements Statistic {
 
     private final TimeSheet jiraTimeSheet;
-    private List<String> teamHomer = new ArrayList<>(Arrays.asList("eplotnikov", "vmurzakov", "mnikolaenko", "ytrunov", "rnemykin", "vuvarov", "akovlyashenko", "ilysenko"));
+    private List<String> teamHomer = Arrays.asList("eplotnikov", "vmurzakov", "mnikolaenko", "ytrunov", "rnemykin", "vuvarov", "akovlyashenko", "ilysenko");
 
     @Autowired
     public TeamStatistic(TimeSheet jiraTimeSheet) {
