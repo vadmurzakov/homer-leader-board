@@ -13,6 +13,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by vadmurzakov on 22.07.17.
@@ -44,21 +45,21 @@ public class TeamStatistic implements Statistic {
 
     @Override
     public List<ru.homer.leaderboard.entity.Statistic> getStatisticsOnTeamFor6Month() {
-        List<ru.homer.leaderboard.entity.Statistic> statistics = new ArrayList<>();
-        for (String username : teamHomer) {
-            ru.homer.leaderboard.entity.Statistic statistic = new ru.homer.leaderboard.entity.Statistic();
-            List<IssueDto> issues = jiraTimeSheet.getAllIssuesForLastMonthByUser(username, 6);
+        return teamHomer.parallelStream()
+                .map(username -> {
+                    ru.homer.leaderboard.entity.Statistic statistic = new ru.homer.leaderboard.entity.Statistic();
+                    List<IssueDto> issues = jiraTimeSheet.getAllIssuesForLastMonthByUser(username, 6);
 
-            statistic.setUsername(username);
-            statistic.setCountIssues(issues.size());
+                    statistic.setUsername(username);
+                    statistic.setCountIssues(issues.size());
 
-            statistic.setCountProductBugs(calcCountBugFilterByType(IssueType.PRODUCT_BUG, issues));
-            statistic.setCountSimpleBugs(calcCountBugFilterByType(IssueType.SIMPLE_BUG, issues));
-            statistic.setCountAllBugs(statistic.getCountProductBugs() + statistic.getCountSimpleBugs());
+                    statistic.setCountProductBugs(calcCountBugFilterByType(IssueType.PRODUCT_BUG, issues));
+                    statistic.setCountSimpleBugs(calcCountBugFilterByType(IssueType.SIMPLE_BUG, issues));
+                    statistic.setCountAllBugs(statistic.getCountProductBugs() + statistic.getCountSimpleBugs());
 
-            statistic.setTimeOnProductBugs(calcTimeFilterByType(IssueType.PRODUCT_BUG, issues));
-            statistic.setTimeOnSimpleBugs(calcTimeFilterByType(IssueType.SIMPLE_BUG, issues));
-            statistic.setTimeOnAllBugs(statistic.getTimeOnProductBugs() + statistic.getTimeOnSimpleBugs());
+                    statistic.setTimeOnProductBugs(calcTimeFilterByType(IssueType.PRODUCT_BUG, issues));
+                    statistic.setTimeOnSimpleBugs(calcTimeFilterByType(IssueType.SIMPLE_BUG, issues));
+                    statistic.setTimeOnAllBugs(statistic.getTimeOnProductBugs() + statistic.getTimeOnSimpleBugs());
 
             double hourPerProductBug;
             double hourPerSimpleBug;
@@ -73,12 +74,12 @@ public class TeamStatistic implements Statistic {
             statistic.setHourPerProductBug(new BigDecimal(hourPerProductBug).setScale(1, RoundingMode.UP).doubleValue());
             statistic.setHourPerSimpleBug(new BigDecimal(hourPerSimpleBug).setScale(1, RoundingMode.UP).doubleValue());
 
-            //todo тут надо посчитать все время за все задачи, пока тут только баги
-            statistic.setAllTimeOnIssues(statistic.getTimeOnAllBugs());
+                    //todo тут надо посчитать все время за все задачи, пока тут только баги
+                    statistic.setAllTimeOnIssues(statistic.getTimeOnAllBugs());
 
-            statistics.add(statistic);
-        }
-        return statistics;
+                    return statistic;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
