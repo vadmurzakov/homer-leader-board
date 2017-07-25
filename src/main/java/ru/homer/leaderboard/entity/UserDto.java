@@ -20,5 +20,6 @@ public class UserDto {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<IssueDto> issueDtos;
+    private String avatarUri;
 
 }

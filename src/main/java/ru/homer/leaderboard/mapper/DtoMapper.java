@@ -29,6 +29,7 @@ public class DtoMapper implements Mapper {
         userDto.setUsername(user.getName());
         userDto.setEmail(user.getEmailAddress());
         userDto.setFullname(user.getDisplayName());
+        userDto.setAvatarUri(user.getAvatarUri().toString());
         return userDto;
     }
 }

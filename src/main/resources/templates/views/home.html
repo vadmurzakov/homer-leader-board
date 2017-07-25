@@ -14,7 +14,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="statistic in statistics">
-        <td>{{statistic.user.fullname}}</td>
+        <td>
+            <img src="{{statistic.user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
+            {{statistic.user.fullname}}
+        </td>
         <td>{{statistic.countProductBugs}} шт за {{(statistic.timeOnProductBugs / 60).toFixed(1)}} ч</td>
         <td>{{statistic.countSimpleBugs}} шт за {{(statistic.timeOnSimpleBugs / 60).toFixed(1)}} ч</td>
         <td>{{statistic.hourPerProductBug}} ч</td>
