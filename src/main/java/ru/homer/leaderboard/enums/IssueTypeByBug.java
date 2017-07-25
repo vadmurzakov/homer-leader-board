@@ -61,13 +61,13 @@ public enum IssueTypeByBug {
         return list;
     }
 
-    public static IssueTypeByBug getByName(String name) {
+    public static IssueTypeByBug converterStringToEnum(String source) {
         for (IssueTypeByBug issueTypeByBug : IssueTypeByBug.values()) {
-            if (issueTypeByBug.getValue().equals(name)) {
+            if (issueTypeByBug.getValue().equals(source)) {
                 return issueTypeByBug;
             }
         }
-        throw new IssueTypeNotFound("Enum " + IssueTypeByBug.class + " with name '" + name + "' not found");
+        throw new IssueTypeNotFound("Can't find enum field with value = " + source);
     }
 
 

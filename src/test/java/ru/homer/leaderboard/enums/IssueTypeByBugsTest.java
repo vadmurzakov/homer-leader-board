@@ -35,7 +35,7 @@ public class IssueTypeByBugsTest {
         for (IssueType issueType : issueTypes) {
             if (ids.contains(issueType.getId())) {
                 String name = issueType.getName();
-                name.equals(IssueTypeByBug.getByName(name).getValue());
+                name.equals(IssueTypeByBug.converterStringToEnum(name).getValue());
             }
         }
     }

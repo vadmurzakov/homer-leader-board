@@ -87,6 +87,7 @@ public class TeamStatistic implements Statistic {
 
     //todo повторяющийся код, надо будет заменить на вызов getStatisticsByUsername
     @Override
+    @Deprecated
     public List<ru.homer.leaderboard.entity.Statistic> getStatisticsOnTeamFor6Month() {
         return teamHomer.parallelStream()
                 .map((String username) -> {
