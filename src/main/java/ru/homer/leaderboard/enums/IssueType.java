@@ -38,7 +38,7 @@ public enum IssueType {
     }
 
     public static IssueType converterStringToEnum(String source) {
-        for(IssueType issueType : IssueType.values()) {
+        for (IssueType issueType : IssueType.values()) {
             if (issueType.getValue().equals(source)) {
                 return issueType;
             }

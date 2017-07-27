@@ -5,12 +5,12 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
     console.log('HomeController');
 
     $scope.progressBar = 0;
-    $scope.statistics = [];
+    $scope.users = [];
     $scope.isProgressBarShow = true;
 
     var HOST_URI = /^(https?:\/\/)?([\da-z\.-:]+)+/.exec(window.location.href)[0];
 
-    users = [
+    usernames = [
         "eplotnikov",
         "vmurzakov",
         "mnikolaenko",
@@ -25,11 +25,11 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
         "nbloshkin"
     ];
 
-    users.forEach(function (item) {
-        $http.get(HOST_URI + '/api/v1/statistic/' + item + '/month/6')
+    usernames.forEach(function (item) {
+        $http.get(HOST_URI + '/api/v1/user/' + item + '/month/6')
             .then(function onSuccess(response) {
-                $scope.statistics.push(response.data);
-                $scope.progressBar += Math.ceil(100 / users.length);
+                $scope.users.push(response.data);
+                $scope.progressBar += Math.ceil(100 / usernames.length);
                 $scope.isProgressBarShow = $scope.progressBar <= 100;
             }, function onError(response) {
                 console.error(response);

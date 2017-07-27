@@ -13,15 +13,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="statistic in statistics">
+    <tr ng-repeat="user in users">
         <td>
-            <img src="{{statistic.user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
-            {{statistic.user.fullname}}
+            <img src="{{user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
+            {{user.fullname}}
         </td>
-        <td>{{statistic.countProductBugs}} шт за {{(statistic.timeOnProductBugs / 60).toFixed(1)}} ч</td>
-        <td>{{statistic.countSimpleBugs}} шт за {{(statistic.timeOnSimpleBugs / 60).toFixed(1)}} ч</td>
-        <td>{{statistic.hourPerProductBug}} ч</td>
-        <td>{{statistic.hourPerSimpleBug}} ч</td>
+        <td>{{user.countProductBugs}} шт за {{(user.timeOnProductBugs / 60).toFixed(1)}} ч</td>
+        <td>{{user.countSimpleBugs}} шт за {{(user.timeOnSimpleBugs / 60).toFixed(1)}} ч</td>
+        <td>{{user.hourPerProductBug}} ч</td>
+        <td>{{user.hourPerSimpleBug}} ч</td>
     </tr>
     </tbody>
 </table>

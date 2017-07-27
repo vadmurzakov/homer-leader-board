@@ -11,7 +11,7 @@ import ru.homer.leaderboard.config.properties.JiraProperties;
 import ru.homer.leaderboard.config.properties.JqlRequest;
 import ru.homer.leaderboard.entity.IssueDto;
 import ru.homer.leaderboard.mapper.Mapper;
-import ru.homer.leaderboard.service.TimeSheet;
+import ru.homer.leaderboard.service.IssueService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  * Created by vadmurzakov on 17.07.17.
  */
 @Service
-public class JiraTimeSheet implements TimeSheet {
+public class JiraIssueService implements IssueService {
 
     private final JiraClientConfiguration jiraClientConfiguration;
     private final JqlRequest jqlRequest;
@@ -29,7 +29,7 @@ public class JiraTimeSheet implements TimeSheet {
     private JiraProperties jiraProperties;
 
     @Autowired
-    public JiraTimeSheet(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper mapper) {
+    public JiraIssueService(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper mapper) {
         this.jiraClientConfiguration = jiraClientConfiguration;
         this.jqlRequest = jqlRequest;
         this.mapper = mapper;

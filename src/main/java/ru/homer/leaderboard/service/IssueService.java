@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by vadmurzakov on 17.07.17.
  */
-public interface TimeSheet {
+public interface IssueService {
 
     /**
      * Получаем список задач пользователя за все время

@@ -22,4 +22,19 @@ public class UserDto {
     private List<IssueDto> issueDtos;
     private String avatarUri;
 
+    //статистика
+    private long countIssues;           //всего задач
+    private double allTimeOnIssues;     //всего потрачено минут на задачи
+
+    private long countAllBugs;          //всего багов
+    private double timeOnAllBugs;       //всего потрачено на все типы багов
+
+    private long countProductBugs;      //кол-во продуктовых багов
+    private double timeOnProductBugs;   //потрачено время на продуктовые баги
+    private double hourPerProductBug;   //количество часов в среднем на 1 продуктовый баг
+
+    private long countSimpleBugs;       //кол-во обычных багов
+    private double timeOnSimpleBugs;    //потрачено время на обычные баги
+    private double hourPerSimpleBug;    //количество часов в среднем на 1 баг
+
 }

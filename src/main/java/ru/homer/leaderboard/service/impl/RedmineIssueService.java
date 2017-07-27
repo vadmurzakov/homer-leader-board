@@ -4,7 +4,7 @@ import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Worklog;
 import org.springframework.stereotype.Service;
 import ru.homer.leaderboard.entity.IssueDto;
-import ru.homer.leaderboard.service.TimeSheet;
+import ru.homer.leaderboard.service.IssueService;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by vadmurzakov on 17.07.17.
  */
 @Service
-public class RedmineTimeSheet implements TimeSheet {
+public class RedmineIssueService implements IssueService {
     @Override
     public List<IssueDto> getAllIssuesByUser(String user) {
         return null;
