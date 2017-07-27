@@ -23,12 +23,12 @@ public enum IssueTypeByBug {
 
     private Long id;
     private String value;
-    private IssueType getBugType;
+    private IssueType BugType;
 
     IssueTypeByBug(Long id, String value, IssueType isProductBug) {
         this.id = id;
         this.value = value;
-        this.getBugType = isProductBug;
+        this.BugType = isProductBug;
     }
 
     public Long getId() {
@@ -40,7 +40,7 @@ public enum IssueTypeByBug {
     }
 
     public IssueType getBugType() {
-        return getBugType;
+        return BugType;
     }
 
     public static List<Long> getIds() {
@@ -54,7 +54,7 @@ public enum IssueTypeByBug {
     public static List<Long> getIdsByType(IssueType type) {
         List<Long> list = new ArrayList<>();
         for (IssueTypeByBug issueTypeByBugs : IssueTypeByBug.values()) {
-            if (issueTypeByBugs.getBugType == type) {
+            if (issueTypeByBugs.getBugType() == type) {
                 list.add(issueTypeByBugs.getId());
             }
         }

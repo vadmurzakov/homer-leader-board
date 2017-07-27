@@ -1,6 +1,7 @@
 package ru.homer.leaderboard.config;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
+import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.IssueType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,15 @@ public class JiraPropertiesConfigurationTest {
         Iterable<IssueType> issueTypeIterable = jiraRestClient.getMetadataClient().getIssueTypes().claim();
         issueTypeIterable.forEach(IssueType -> issueTypes.add(IssueType));
         assertTrue(issueTypes.size() > 0);
+    }
+
+    @Test
+    public void getAllProject() throws Exception {
+        List<BasicProject> basicProjects = new ArrayList<>();
+        JiraRestClient jiraRestClient = jiraClientConfiguration.jiraRestClient();
+        Iterable<BasicProject> basicProjectsIterable = jiraRestClient.getProjectClient().getAllProjects().claim();
+        basicProjectsIterable.forEach(BasicProject -> basicProjects.add(BasicProject));
+        assertTrue(basicProjects.size() > 0);
     }
 
 }

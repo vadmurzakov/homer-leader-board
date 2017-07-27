@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.homer.leaderboard.config.JiraClientConfiguration;
 import ru.homer.leaderboard.entity.IssueDto;
+import ru.homer.leaderboard.entity.IssueStatistic;
 import ru.homer.leaderboard.entity.UserDto;
 import ru.homer.leaderboard.enums.IssueType;
 import ru.homer.leaderboard.enums.IssueTypeByBug;
@@ -12,8 +13,7 @@ import ru.homer.leaderboard.mapper.Mapper;
 import ru.homer.leaderboard.service.IssueService;
 import ru.homer.leaderboard.service.UserService;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,14 +22,12 @@ import java.util.List;
 @Service
 public class JiraUserService implements UserService {
 
-    private final JiraClientConfiguration jiraClientConfiguration;
     private final IssueService jiraIssueService;
     private final Mapper mapper;
     private JiraRestClient jiraRestClient;
 
     @Autowired
     public JiraUserService(JiraClientConfiguration jiraClientConfiguration, IssueService jiraIssueService, Mapper mapper) {
-        this.jiraClientConfiguration = jiraClientConfiguration;
         this.jiraIssueService = jiraIssueService;
         this.mapper = mapper;
         this.jiraRestClient = jiraClientConfiguration.jiraRestClient();
@@ -44,60 +42,35 @@ public class JiraUserService implements UserService {
     public UserDto getStatisticByUsername(String username, int countMonth) {
         UserDto userDto = getUserByUsername(username);
         List<IssueDto> issues = jiraIssueService.getAllIssuesForLastMonthByUser(username, countMonth);
+        List<IssueStatistic> issueStatistics = new ArrayList<>();
 
-        userDto.setCountIssues(issues.size());
+        issueStatistics.add(getStatisticByIssueType(IssueType.SIMPLE_BUG, issues));
+        issueStatistics.add(getStatisticByIssueType(IssueType.PRODUCT_BUG, issues));
 
-        userDto.setCountProductBugs(calcCountBugFilterByType(IssueType.PRODUCT_BUG, issues));
-        userDto.setCountSimpleBugs(calcCountBugFilterByType(IssueType.SIMPLE_BUG, issues));
-        userDto.setCountAllBugs(userDto.getCountProductBugs() + userDto.getCountSimpleBugs());
+        issueStatistics.add(new IssueStatistic(
+                IssueType.BUGS,
+                issueStatistics.get(0).getCount() + issueStatistics.get(1).getCount(),
+                issueStatistics.get(0).getTime() + issueStatistics.get(1).getTime()
+        ));
 
-        userDto.setTimeOnProductBugs(calcTimeFilterByType(IssueType.PRODUCT_BUG, issues));
-        userDto.setTimeOnSimpleBugs(calcTimeFilterByType(IssueType.SIMPLE_BUG, issues));
-        userDto.setTimeOnAllBugs(userDto.getTimeOnProductBugs() + userDto.getTimeOnSimpleBugs());
+        userDto.setIssueStatistics(issueStatistics);
 
-        double hourPerProductBug;
-        double hourPerSimpleBug;
-
-        try {
-            hourPerSimpleBug = userDto.getTimeOnSimpleBugs() / 60 / (double) userDto.getCountSimpleBugs();
-            userDto.setHourPerSimpleBug(new BigDecimal(hourPerSimpleBug).setScale(1, RoundingMode.UP).doubleValue());
-        } catch (NumberFormatException ex) {
-            userDto.setHourPerSimpleBug(0.0);
-        }
-
-        try {
-            hourPerProductBug = userDto.getTimeOnProductBugs() / 60 / (double) userDto.getCountProductBugs();
-            userDto.setHourPerProductBug(new BigDecimal(hourPerProductBug).setScale(1, RoundingMode.UP).doubleValue());
-        } catch (NumberFormatException ex) {
-            userDto.setHourPerProductBug(0.0);
-        }
-
-        //todo тут надо посчитать все время за все задачи, пока тут только баги
-        userDto.setAllTimeOnIssues(userDto.getTimeOnAllBugs());
+        userDto.setIssueDtos(issues);
 
         return userDto;
     }
 
-    public Long calcCountBugFilterByType(IssueType issueType, List<IssueDto> issueDtos) {
+    public IssueStatistic getStatisticByIssueType(IssueType issueType, List<IssueDto> issueDtos) {
         Long count = 0L;
-        List<Long> idsIssueType = IssueTypeByBug.getIdsByType(issueType);
-        for (IssueDto issueDto : issueDtos) {
-            if (idsIssueType.contains(issueDto.getIssueType().getId())) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public Long calcTimeFilterByType(IssueType issueType, List<IssueDto> issueDtos) {
         Long time = 0L;
         List<Long> idsIssueType = IssueTypeByBug.getIdsByType(issueType);
         for (IssueDto issueDto : issueDtos) {
             if (idsIssueType.contains(issueDto.getIssueType().getId())) {
+                count++;
                 time += issueDto.getWorkTime();
             }
         }
-        return time;
+        return new IssueStatistic(issueType, count, time);
     }
 
 }

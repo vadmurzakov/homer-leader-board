@@ -19,6 +19,10 @@ public enum IssueType {
      */
     DEV("Разработка"),
     /**
+     * Баги
+     */
+    BUGS("Баги"),
+    /**
      * TaskCR
      */
     TASK_CR("TaskCR"),

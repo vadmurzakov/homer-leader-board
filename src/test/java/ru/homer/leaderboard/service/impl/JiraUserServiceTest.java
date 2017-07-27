@@ -33,7 +33,7 @@ public class JiraUserServiceTest {
     @Test
     public void getStatisticsByUsername() throws Exception {
         UserDto userDto = jiraUserService.getStatisticByUsername(USERNAME, 6);
-        assertTrue(userDto.getCountAllBugs() > 0);
+        assertTrue(userDto.getIssueStatistics().get(0).getCount() > 0);
     }
 
 }

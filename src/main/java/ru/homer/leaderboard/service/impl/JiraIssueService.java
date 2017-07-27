@@ -22,7 +22,6 @@ import java.util.List;
 @Service
 public class JiraIssueService implements IssueService {
 
-    private final JiraClientConfiguration jiraClientConfiguration;
     private final JqlRequest jqlRequest;
     private final Mapper mapper;
     private JiraRestClient jiraRestClient;
@@ -30,7 +29,6 @@ public class JiraIssueService implements IssueService {
 
     @Autowired
     public JiraIssueService(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper mapper) {
-        this.jiraClientConfiguration = jiraClientConfiguration;
         this.jqlRequest = jqlRequest;
         this.mapper = mapper;
         this.jiraRestClient = jiraClientConfiguration.jiraRestClient();
