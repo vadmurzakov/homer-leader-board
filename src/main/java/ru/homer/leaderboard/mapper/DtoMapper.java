@@ -1,9 +1,11 @@
 package ru.homer.leaderboard.mapper;
 
+import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.User;
 import org.springframework.stereotype.Component;
 import ru.homer.leaderboard.entity.IssueDto;
+import ru.homer.leaderboard.entity.ProjectDto;
 import ru.homer.leaderboard.entity.UserDto;
 
 /**
@@ -15,7 +17,7 @@ public class DtoMapper implements Mapper {
     public IssueDto mapIssueDto(Issue issue) {
         IssueDto issueDto = new IssueDto();
         issueDto.setIdIssue(issue.getId());
-        issueDto.setBasicProject(issue.getProject().getName());
+        issueDto.setProject(mapProjectDto(issue.getProject()));
         issueDto.setSummary(issue.getSummary());
         issueDto.setIssueType(issue.getIssueType());
         issueDto.setCreationDate(issue.getCreationDate());
@@ -31,5 +33,14 @@ public class DtoMapper implements Mapper {
         userDto.setFullname(user.getDisplayName());
         userDto.setAvatarUri(user.getAvatarUri().toString());
         return userDto;
+    }
+
+    @Override
+    public ProjectDto mapProjectDto(BasicProject basicProject) {
+        return new ProjectDto(
+                basicProject.getId(),
+                basicProject.getKey(),
+                basicProject.getName()
+        );
     }
 }

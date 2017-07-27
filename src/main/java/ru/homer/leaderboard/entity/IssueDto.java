@@ -18,11 +18,14 @@ public class IssueDto {
     @JsonIgnore
     private Long id;
     private Long idIssue;
+
     @OneToOne
     @JoinColumn(name = "idUser")
     @JsonBackReference
     private UserDto user;
-    private String basicProject;
+
+    private ProjectDto project;
+
     private IssueType issueType;
     private String summary;
     @JsonIgnore

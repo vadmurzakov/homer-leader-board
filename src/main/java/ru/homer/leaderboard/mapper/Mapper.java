@@ -1,8 +1,10 @@
 package ru.homer.leaderboard.mapper;
 
+import com.atlassian.jira.rest.client.api.domain.BasicProject;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.User;
 import ru.homer.leaderboard.entity.IssueDto;
+import ru.homer.leaderboard.entity.ProjectDto;
 import ru.homer.leaderboard.entity.UserDto;
 
 /**
@@ -13,5 +15,7 @@ public interface Mapper {
     public IssueDto mapIssueDto(Issue issue);
 
     public UserDto mapUserDto(User user);
+
+    public ProjectDto mapProjectDto(BasicProject basicProject);
 
 }
