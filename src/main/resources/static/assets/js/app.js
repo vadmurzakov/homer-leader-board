@@ -4,7 +4,8 @@
 var LeaderBoard = angular.module('LeaderBoard', ['ngRoute', 'smart-table', 'ui.bootstrap', 'ngAnimate']);
 
 
-LeaderBoard.config(function ($routeProvider) {
+LeaderBoard.config(function ($routeProvider, $locationProvider) {
+    $locationProvider.html5Mode(true).hashPrefix('');
 
     $routeProvider.when('/', {
         templateUrl: '/views/home.html',

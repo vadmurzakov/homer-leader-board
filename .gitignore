@@ -4,5 +4,5 @@ build
 mvnw*
 .idea
 *.iml
-bower_compontnts/
+bower_components/
 derby.log
