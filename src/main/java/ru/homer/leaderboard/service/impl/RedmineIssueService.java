@@ -37,4 +37,9 @@ public class RedmineIssueService implements IssueService {
     public List<Worklog> getWorklogsByIssue(Issue issue) {
         return null;
     }
+
+    @Override
+    public IssueDto getParrentIssue(String key) {
+        return null;
+    }
 }

@@ -52,4 +52,12 @@ public interface IssueService {
      */
     public List<Worklog> getWorklogsByIssue(Issue issue);
 
+    /**
+     * Если задача является подзадачей, возвращает родительскую задачу данной задачи
+     *
+     * @param key
+     * @return
+     */
+    public IssueDto getParrentIssue(String key);
+
 }

@@ -39,7 +39,7 @@ public class JiraIssueServiceTest {
 
     @Test
     public void getIssueByKey() throws Exception {
-        IssueDto issue = jiraIssueService.getIssueByKey("JHOMER-54901");
+        IssueDto issue = jiraIssueService.getIssueByKey("JHOMER-55800");
         assertNotNull(issue);
     }
 
@@ -55,5 +55,11 @@ public class JiraIssueServiceTest {
         IssueDto issue = jiraIssueService.getIssueByKey(key);
         assertTrue(issue.getKey().equals(key));
         assertTrue(issue.getWorkTime() > 0);
+    }
+
+    @Test
+    public void getParrentIssue() throws Exception {
+        IssueDto issue = jiraIssueService.getParrentIssue("JHOMER-55800");
+        assertNotNull(issue);
     }
 }

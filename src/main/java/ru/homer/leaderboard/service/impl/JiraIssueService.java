@@ -2,17 +2,21 @@ package ru.homer.leaderboard.service.impl;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.IssueField;
 import com.atlassian.jira.rest.client.api.domain.SearchResult;
 import com.atlassian.jira.rest.client.api.domain.Worklog;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.homer.leaderboard.config.JiraClientConfiguration;
 import ru.homer.leaderboard.config.properties.JiraProperties;
 import ru.homer.leaderboard.config.properties.JqlRequest;
 import ru.homer.leaderboard.entity.IssueDto;
+import ru.homer.leaderboard.entity.parrentissue.ParrentDto;
 import ru.homer.leaderboard.mapper.Mapper;
 import ru.homer.leaderboard.service.IssueService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,7 @@ public class JiraIssueService implements IssueService {
     private final Mapper mapper;
     private JiraRestClient jiraRestClient;
     private JiraProperties jiraProperties;
+    private ObjectMapper jacksonMapper;
 
     @Autowired
     public JiraIssueService(JiraClientConfiguration jiraClientConfiguration, JqlRequest jqlRequest, Mapper mapper) {
@@ -33,6 +38,7 @@ public class JiraIssueService implements IssueService {
         this.mapper = mapper;
         this.jiraRestClient = jiraClientConfiguration.jiraRestClient();
         this.jiraProperties = jiraClientConfiguration.getJiraProperties();
+        this.jacksonMapper = new ObjectMapper();
     }
 
     @Override
@@ -130,5 +136,18 @@ public class JiraIssueService implements IssueService {
             return worklogs;
         }
         return worklogs;
+    }
+
+    @Override
+    public IssueDto getParrentIssue(String key) {
+        Issue claim = jiraRestClient.getIssueClient().getIssue(key).claim();
+        IssueField parent = claim.getField("parent");
+        try {
+            ParrentDto parrentDto = jacksonMapper.readValue(parent.getValue().toString(), ParrentDto.class);
+            return getIssueByKey(parrentDto.getKey());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
