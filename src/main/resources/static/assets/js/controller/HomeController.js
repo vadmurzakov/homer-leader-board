@@ -8,7 +8,7 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
     $scope.users = [];
     $scope.isProgressBarShow = true;
 
-    var HOST_URI = /^(https?:\/\/)?([\da-z\.-:]+)+/.exec(window.location.href)[0];
+    var HOST_URI = /^(https?:\/\/)?([\da-z0-9\.\-:]+)/.exec(window.location.href)[0];
 
     usernames = [
         "eplotnikov",
