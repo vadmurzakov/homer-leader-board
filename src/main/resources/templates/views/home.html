@@ -8,8 +8,8 @@
         <th>пользователь</th>
         <th>продуктовых багов</th>
         <th>обычных багов</th>
-        <th>в среднем на продуктовый баг</th>
         <th>в среднем на обычный баг</th>
+        <th>в среднем на продуктовый баг</th>
     </tr>
     </thead>
     <tbody>
@@ -18,10 +18,10 @@
             <img src="{{user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
             {{user.fullname}}
         </td>
-        <td>{{user.countProductBugs}} шт за {{(user.timeOnProductBugs / 60).toFixed(1)}} ч</td>
-        <td>{{user.countSimpleBugs}} шт за {{(user.timeOnSimpleBugs / 60).toFixed(1)}} ч</td>
-        <td>{{user.hourPerProductBug}} ч</td>
-        <td>{{user.hourPerSimpleBug}} ч</td>
+        <td>{{user.issueStatistics[0].count}} шт за {{(user.issueStatistics[0].count / 60).toFixed(1)}} ч</td>
+        <td>{{user.issueStatistics[1].count}} шт за {{(user.issueStatistics[1].time / 60).toFixed(1)}} ч</td>
+        <td>{{((user.issueStatistics[0].time / user.issueStatistics[0].count)/60).toFixed(1)}} ч</td>
+        <td>{{((user.issueStatistics[1].time / user.issueStatistics[1].count)/60).toFixed(1)}} ч</td>
     </tr>
     </tbody>
 </table>
