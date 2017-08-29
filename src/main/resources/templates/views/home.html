@@ -6,8 +6,8 @@
     <thead>
     <tr>
         <th>пользователь</th>
-        <th>продуктовых багов</th>
         <th>обычных багов</th>
+        <th>продуктовых багов</th>
         <th>в среднем на обычный баг</th>
         <th>в среднем на продуктовый баг</th>
     </tr>
@@ -18,7 +18,7 @@
             <img src="{{user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
             {{user.fullname}}
         </td>
-        <td>{{user.issueStatistics[0].count}} шт за {{(user.issueStatistics[0].count / 60).toFixed(1)}} ч</td>
+        <td>{{user.issueStatistics[0].count}} шт за {{(user.issueStatistics[0].time / 60).toFixed(1)}} ч</td>
         <td>{{user.issueStatistics[1].count}} шт за {{(user.issueStatistics[1].time / 60).toFixed(1)}} ч</td>
         <td>{{((user.issueStatistics[0].time / user.issueStatistics[0].count)/60).toFixed(1)}} ч</td>
         <td>{{((user.issueStatistics[1].time / user.issueStatistics[1].count)/60).toFixed(1)}} ч</td>
