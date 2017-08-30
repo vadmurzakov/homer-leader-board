@@ -11,7 +11,8 @@ public enum Issue {
     PRODUCT_BUG("ProductBug"),
     DEV("Разработка"),
     BUGS("Баги"),
-    ANALYTICS("Аналитика");
+    ANALYTICS("Аналитика"),
+    PATCH("Патчи");
 
     private String value;
 

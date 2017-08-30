@@ -54,6 +54,8 @@ public class JiraUserService implements UserService {
         ));
 
         issueStatistics.add(getStatisticByIssueType(Issue.ANALYTICS, issues));
+        issueStatistics.add(getStatisticByIssueType(Issue.PATCH, issues));
+        issueStatistics.add(getStatisticForDev(issueStatistics, issues));
 
         userDto.setIssueStatistics(issueStatistics);
 
@@ -80,6 +82,31 @@ public class JiraUserService implements UserService {
             }
         }
         return new IssueStatistic(issue, count, time);
+    }
+
+    private IssueStatistic getStatisticForDev(List<IssueStatistic> issueStatistic, List<IssueDto> issueDtos) {
+        long count = 0;
+        double time = 0;
+        for (IssueDto issueDto : issueDtos) {
+            if (issueDto.getWorkTime() > 10) {
+                count ++;
+                time += issueDto.getWorkTime();
+            }
+        }
+
+        long countOtherIssue = 0;
+        double timeOtherIssue = 0;
+        for (IssueStatistic issue : issueStatistic) {
+            if (issue.getIssue() != Issue.BUGS) {
+                countOtherIssue += issue.getCount();
+                timeOtherIssue += issue.getTime();
+            }
+        }
+
+        return new IssueStatistic(
+                Issue.DEV,
+                count - countOtherIssue,
+                time - timeOtherIssue);
     }
 
 }

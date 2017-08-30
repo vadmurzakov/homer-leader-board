@@ -6,11 +6,41 @@
 <table st-table="rowCollection" class="table table-striped">
     <thead>
     <tr>
+        <!--фио-->
         <th>
             <a href="javascript:void(0)" ng-click="sortBy('fullname')">пользователь</a>
             <span ng-show="propertyName == 'fullname' &amp;&amp; !reverse" class="fa fa-caret-down"></span>
             <span ng-show="propertyName == 'fullname' &amp;&amp; reverse" class="fa fa-caret-up"></span>
         </th>
+        <!--разработка-->
+        <th>
+            <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[5].count')">разработка</a>
+            <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; !reverse"
+                  class="fa fa-caret-down"></span>
+            <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; reverse" class="fa fa-caret-up"></span>
+        </th>
+        <!--баги-->
+        <th>
+            <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[2].count')">баги</a>
+            <span ng-show="propertyName == 'issueStatistics[2].count' &amp;&amp; !reverse"
+                  class="fa fa-caret-down"></span>
+            <span ng-show="propertyName == 'issueStatistics[2].count' &amp;&amp; reverse" class="fa fa-caret-up"></span>
+        </th>
+        <!--аналитика-->
+        <th>
+            <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[3].count')">аналитика</a>
+            <span ng-show="propertyName == 'issueStatistics[3].count' &amp;&amp; !reverse"
+                  class="fa fa-caret-down"></span>
+            <span ng-show="propertyName == 'issueStatistics[3].count' &amp;&amp; reverse" class="fa fa-caret-up"></span>
+        </th>
+        <!--патчи-->
+        <th>
+            <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[4].count')">патчи</a>
+            <span ng-show="propertyName == 'issueStatistics[4].count' &amp;&amp; !reverse"
+                  class="fa fa-caret-down"></span>
+            <span ng-show="propertyName == 'issueStatistics[4].count' &amp;&amp; reverse" class="fa fa-caret-up"></span>
+        </th>
+
         <th>
             <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[0].count')">обычных багов</a>
             <span ng-show="propertyName == 'issueStatistics[0].count' &amp;&amp; !reverse"
@@ -39,19 +69,34 @@
             <span ng-show="propertyName == 'issueStatistics[1].time/issueStatistics[1].count' &amp;&amp; reverse"
                   class="fa fa-caret-up"></span>
         </th>
-        <th>
-            <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[3].count')">аналитика</a>
-            <span ng-show="propertyName == 'issueStatistics[3].count' &amp;&amp; !reverse" class="fa fa-caret-down"></span>
-            <span ng-show="propertyName == 'issueStatistics[3].count' &amp;&amp; reverse" class="fa fa-caret-up"></span>
-        </th>
+
+
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="user in users | orderBy:propertyName:!reverse">
+        <!--фио-->
         <td ng-style="{'background-color':propertyName == 'fullname'?'rgba(217, 237, 247, 0.32)':''}">
             <img src="{{user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
             {{user.fullname}}
         </td>
+        <!--разработка-->
+        <td ng-style="{'background-color':propertyName == 'issueStatistics[5].count'?'rgba(217, 237, 247, 0.32)':''}">
+            {{user.issueStatistics[5].count}} шт за {{(user.issueStatistics[5].time / 60).toFixed(1)}} ч
+        </td>
+        <!--баги-->
+        <td ng-style="{'background-color':propertyName == 'issueStatistics[2].count'?'rgba(217, 237, 247, 0.32)':''}">
+            {{user.issueStatistics[2].count}} шт за {{(user.issueStatistics[2].time / 60).toFixed(1)}} ч
+        </td>
+        <!--аналитика-->
+        <td ng-style="{'background-color':propertyName == 'issueStatistics[3].count'?'rgba(217, 237, 247, 0.32)':''}">
+            {{user.issueStatistics[3].count}} шт за {{(user.issueStatistics[3].time / 60).toFixed(1)}} ч
+        </td>
+        <!--патчи-->
+        <td ng-style="{'background-color':propertyName == 'issueStatistics[4].count'?'rgba(217, 237, 247, 0.32)':''}">
+            {{user.issueStatistics[4].count}} шт за {{(user.issueStatistics[4].time / 60).toFixed(1)}} ч
+        </td>
+
         <td ng-style="{'background-color':propertyName == 'issueStatistics[0].count'?'rgba(217, 237, 247, 0.32)':''}">
             {{user.issueStatistics[0].count}} шт за {{(user.issueStatistics[0].time / 60).toFixed(1)}} ч
         </td>
@@ -64,9 +109,8 @@
         <td ng-style="{'background-color':propertyName == 'issueStatistics[1].time/issueStatistics[1].count'?'rgba(217, 237, 247, 0.32)':''}">
             {{((user.issueStatistics[1].time / user.issueStatistics[1].count)/60).toFixed(1)}} ч
         </td>
-        <td ng-style="{'background-color':propertyName == 'issueStatistics[1].count'?'rgba(217, 237, 247, 0.32)':''}">
-            {{user.issueStatistics[3].count}} шт за {{(user.issueStatistics[3].time / 60).toFixed(1)}} ч
-        </td>
+
+
     </tr>
     </tbody>
 </table>

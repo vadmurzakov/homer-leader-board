@@ -25,7 +25,11 @@ public enum IssueType {
     //аналитика
     REQUEST(25L,"Request", Issue.ANALYTICS),
     REQUEST_JPERF(55L,"RequestJPERF", Issue.ANALYTICS),
-    CHANGE_REQUEST(7L,"ChangeRequest", Issue.ANALYTICS);
+    CHANGE_REQUEST(7L,"ChangeRequest", Issue.ANALYTICS),
+
+    //патчи
+    PATCH(21L, "Patch", Issue.PATCH),
+    PROD_PATCH(88L, "ProdPatch", Issue.PATCH);
 
     private Long id;
     private String value;
