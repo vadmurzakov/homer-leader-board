@@ -72,7 +72,7 @@ public class JiraUserService implements UserService {
         double time = 0;
         List<Long> idsIssueType = IssueTypeByBug.getIdsByType(issueType);
         for (IssueDto issueDto : issueDtos) {
-            if (idsIssueType.contains(issueDto.getIssueType().getId())) {
+            if (idsIssueType.contains(issueDto.getIssueType().getId()) && issueDto.getWorkTime() > 10) {
                 count++;
                 time += issueDto.getWorkTime();
             }
