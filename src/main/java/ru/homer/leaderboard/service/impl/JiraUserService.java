@@ -44,14 +44,16 @@ public class JiraUserService implements UserService {
         List<IssueDto> issues = jiraIssueService.getAllIssuesForLastMonthByUser(username, countMonth);
         List<IssueStatistic> issueStatistics = new ArrayList<>();
 
-        issueStatistics.add(getStatisticForBug(Issue.SIMPLE_BUG, issues));
-        issueStatistics.add(getStatisticForBug(Issue.PRODUCT_BUG, issues));
+        issueStatistics.add(getStatisticByIssueType(Issue.SIMPLE_BUG, issues));
+        issueStatistics.add(getStatisticByIssueType(Issue.PRODUCT_BUG, issues));
 
         issueStatistics.add(new IssueStatistic(
                 Issue.BUGS,
                 issueStatistics.get(0).getCount() + issueStatistics.get(1).getCount(),
                 issueStatistics.get(0).getTime() + issueStatistics.get(1).getTime()
         ));
+
+        issueStatistics.add(getStatisticByIssueType(Issue.ANALYTICS, issues));
 
         userDto.setIssueStatistics(issueStatistics);
 
@@ -61,13 +63,13 @@ public class JiraUserService implements UserService {
     }
 
     /**
-     * Получить статистику в зависимости от типа бага
+     * Получить статистику в зависимости от типа задачи
      *
      * @param issue тип бага
      * @param issueDtos список задач
      * @return IssueStatistic
      */
-    private IssueStatistic getStatisticForBug(Issue issue, List<IssueDto> issueDtos) {
+    private IssueStatistic getStatisticByIssueType(Issue issue, List<IssueDto> issueDtos) {
         long count = 0;
         double time = 0;
         List<Long> idsIssueType = IssueType.getIdsByType(issue);

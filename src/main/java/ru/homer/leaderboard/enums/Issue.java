@@ -5,6 +5,7 @@ import ru.homer.leaderboard.exception.IssueTypeNotFound;
 /**
  * Created by vadmurzakov on 22.07.17.
  */
+//todo надо переименовать, ибо это не issue, а тип
 public enum Issue {
     SIMPLE_BUG("Simple bug"),
     PRODUCT_BUG("ProductBug"),
