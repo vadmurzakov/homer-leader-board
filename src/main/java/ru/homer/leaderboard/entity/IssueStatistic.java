@@ -3,7 +3,7 @@ package ru.homer.leaderboard.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import ru.homer.leaderboard.enums.IssueType;
+import ru.homer.leaderboard.enums.Issue;
 
 import javax.persistence.*;
 
@@ -22,12 +22,12 @@ public class IssueStatistic {
     @JsonBackReference
     private UserDto user;
 
-    private IssueType issueType;    //тип задачи
+    private Issue issue;            //тип задачи
     private long count;             //количество
     private double time;            //затраченное время
 
-    public IssueStatistic(IssueType issueType, long count, double time) {
-        this.issueType = issueType;
+    public IssueStatistic(Issue issue, long count, double time) {
+        this.issue = issue;
         this.count = count;
         this.time = time;
     }

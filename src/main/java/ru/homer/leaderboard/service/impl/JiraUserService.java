@@ -7,8 +7,8 @@ import ru.homer.leaderboard.config.JiraClientConfiguration;
 import ru.homer.leaderboard.entity.IssueDto;
 import ru.homer.leaderboard.entity.IssueStatistic;
 import ru.homer.leaderboard.entity.UserDto;
+import ru.homer.leaderboard.enums.Issue;
 import ru.homer.leaderboard.enums.IssueType;
-import ru.homer.leaderboard.enums.IssueTypeByBug;
 import ru.homer.leaderboard.mapper.Mapper;
 import ru.homer.leaderboard.service.IssueService;
 import ru.homer.leaderboard.service.UserService;
@@ -44,11 +44,11 @@ public class JiraUserService implements UserService {
         List<IssueDto> issues = jiraIssueService.getAllIssuesForLastMonthByUser(username, countMonth);
         List<IssueStatistic> issueStatistics = new ArrayList<>();
 
-        issueStatistics.add(getStatisticForBug(IssueType.SIMPLE_BUG, issues));
-        issueStatistics.add(getStatisticForBug(IssueType.PRODUCT_BUG, issues));
+        issueStatistics.add(getStatisticForBug(Issue.SIMPLE_BUG, issues));
+        issueStatistics.add(getStatisticForBug(Issue.PRODUCT_BUG, issues));
 
         issueStatistics.add(new IssueStatistic(
-                IssueType.BUGS,
+                Issue.BUGS,
                 issueStatistics.get(0).getCount() + issueStatistics.get(1).getCount(),
                 issueStatistics.get(0).getTime() + issueStatistics.get(1).getTime()
         ));
@@ -63,21 +63,21 @@ public class JiraUserService implements UserService {
     /**
      * Получить статистику в зависимости от типа бага
      *
-     * @param issueType тип бага
+     * @param issue тип бага
      * @param issueDtos список задач
      * @return IssueStatistic
      */
-    private IssueStatistic getStatisticForBug(IssueType issueType, List<IssueDto> issueDtos) {
+    private IssueStatistic getStatisticForBug(Issue issue, List<IssueDto> issueDtos) {
         long count = 0;
         double time = 0;
-        List<Long> idsIssueType = IssueTypeByBug.getIdsByType(issueType);
+        List<Long> idsIssueType = IssueType.getIdsByType(issue);
         for (IssueDto issueDto : issueDtos) {
             if (idsIssueType.contains(issueDto.getIssueType().getId()) && issueDto.getWorkTime() > 10) {
                 count++;
                 time += issueDto.getWorkTime();
             }
         }
-        return new IssueStatistic(issueType, count, time);
+        return new IssueStatistic(issue, count, time);
     }
 
 }

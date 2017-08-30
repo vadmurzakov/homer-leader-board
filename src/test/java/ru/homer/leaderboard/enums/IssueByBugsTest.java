@@ -1,6 +1,5 @@
 package ru.homer.leaderboard.enums;
 
-import com.atlassian.jira.rest.client.api.domain.IssueType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,29 +19,29 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Rollback
-public class IssueTypeByBugsTest {
+public class IssueByBugsTest {
 
     @Autowired
     private JiraClientConfiguration jiraClientConfiguration;
 
     @Test
     public void checkEnumIssueTypeByBug() {
-        List<Long> ids = IssueTypeByBug.getIds();
-        List<IssueType> issueTypes = new ArrayList<>();
+        List<Long> ids = IssueType.getIds();
+        List<com.atlassian.jira.rest.client.api.domain.IssueType> issueTypes = new ArrayList<>();
         jiraClientConfiguration.jiraRestClient().getMetadataClient().getIssueTypes().claim().forEach(IssueType -> issueTypes.add(IssueType));
         assertTrue(issueTypes.size() > 0 && ids.size() > 0);
 
-        for (IssueType issueType : issueTypes) {
+        for (com.atlassian.jira.rest.client.api.domain.IssueType issueType : issueTypes) {
             if (ids.contains(issueType.getId())) {
                 String name = issueType.getName();
-                name.equals(IssueTypeByBug.converterStringToEnum(name).getValue());
+                name.equals(IssueType.converterStringToEnum(name).getValue());
             }
         }
     }
 
     @Test
     public void getEnumsIssueTypeByPoductBug() {
-        List<Long> list = IssueTypeByBug.getIdsByType(ru.homer.leaderboard.enums.IssueType.PRODUCT_BUG);
+        List<Long> list = IssueType.getIdsByType(Issue.PRODUCT_BUG);
         assertTrue(list.size() == 2);
     }
 

@@ -12,12 +12,12 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class IssueTypeTest {
+public class IssueTest {
 
     @Test
     public void converterStringToEnum() throws Exception {
-        IssueType issueType = IssueType.converterStringToEnum("TaskCR");
-        assertTrue(issueType == IssueType.TASK_CR);
+        Issue issue = Issue.converterStringToEnum("Аналитика");
+        assertTrue(issue == Issue.ANALYTICS);
     }
 
 }
