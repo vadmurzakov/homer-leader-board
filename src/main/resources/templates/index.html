@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=cyrillic" rel="stylesheet"/>
 
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/assets/css/style.css}"/>
 
 </head>
@@ -19,11 +20,14 @@
 
 <div class="container">
     <div class="page-header">
-        <h1><a href="/">Статистика по ЦК Homer</a></h1>
+        <h1><a href="/">Статистика по ЦК Homer</a> *</h1>
         <p class="lead">
             за последние 6 месяцев
             <!-- <span class="right" ng-show="!isAuthorized"><a href="#!/login">войти</a></span> -->
         </p>
+        *
+        <mark>учитываются задачи, на которые списано более 10 мин</mark>
+        <mark>учитываются только баги</mark>
     </div>
     <div class="row">
         <div class="col-md-12">
