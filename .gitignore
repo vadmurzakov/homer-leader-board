@@ -6,4 +6,4 @@ mvnw*
 *.iml
 bower_components/
 derby.log
-config/*
+!/src/main/resources/config/
