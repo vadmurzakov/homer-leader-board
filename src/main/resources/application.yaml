@@ -1,6 +1,6 @@
 jira:
   url: https://jira.homecredit.ru/
   login: VMurzakov
-  password: ZzfU6Uft
+  password: password
   maxResults: 50
   startAt: 0
