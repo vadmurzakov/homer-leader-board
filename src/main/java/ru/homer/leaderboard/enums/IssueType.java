@@ -25,7 +25,8 @@ public enum IssueType {
     //аналитика
     REQUEST(25L,"Request", Issue.ANALYTICS),
     REQUEST_JPERF(55L,"RequestJPERF", Issue.ANALYTICS),
-    CHANGE_REQUEST(7L,"ChangeRequest", Issue.ANALYTICS),
+    APPROVAL_SUB_TASK(20L,"Approval Sub-task", Issue.ANALYTICS),
+    BP_BT(22L,"БП, БТ", Issue.ANALYTICS),
 
     //патчи
     PATCH(21L, "Patch", Issue.PATCH),

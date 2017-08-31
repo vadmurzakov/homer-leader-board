@@ -5,7 +5,12 @@ var LeaderBoard = angular.module('LeaderBoard', ['ngRoute', 'smart-table', 'ui.b
 
 
 LeaderBoard.config(function ($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode(true).hashPrefix('');
+    // $locationProvider.html5Mode(true).hashPrefix('');
+
+    $routeProvider.when('/liferay', {
+        templateUrl: '/views/home.html',
+        controller: 'LiferayController'
+    });
 
     $routeProvider.when('/', {
         templateUrl: '/views/home.html',

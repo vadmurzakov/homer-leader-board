@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Leader Board</title>
-    <base href="/"/>
+    <!--<base href="/"/>-->
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=cyrillic" rel="stylesheet"/>
 
@@ -23,7 +23,10 @@
         <h1><a href="/">Статистика по ЦК Homer</a> *</h1>
         <p class="lead">
             за последние 6 месяцев
-            <!-- <span class="right" ng-show="!isAuthorized"><a href="#!/login">войти</a></span> -->
+             <span class="right">
+                 <a href="/">Homer</a>
+                 <a href="#!/liferay" style="margin-left: 10px;">Liferay</a>
+             </span>
         </p>
         *
         <mark>учитываются задачи, на которые списано более 10 мин</mark>
@@ -45,5 +48,6 @@
 <script th:src="@{/assets/lib/ui-bootstrap-tpls-2.5.0.min.js}"></script>
 <script th:src="@{/assets/js/app.js}"></script>
 <script th:src="@{/assets/js/controller/HomeController.js}"></script>
+<script th:src="@{/assets/js/controller/LiferayController.js?version=1.1}"></script>
 </body>
 </html>

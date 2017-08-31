@@ -1,8 +1,8 @@
 /**
  * Created by vadmurzakov on 20.07.17.
  */
-LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope, $q) {
-    console.log('HomeController');
+LeaderBoard.controller('LiferayController', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope, $q) {
+    console.log('LiferayController');
 
     $scope.progressBar = 0;
     $scope.users = [];
@@ -11,19 +11,12 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
     var HOST_URI = /^(https?:\/\/)?([\da-z0-9\.\-:]+)/.exec(window.location.href)[0];
 
     usernames = [
-        "eplotnikov",
-        "vmurzakov",
-        "mnikolaenko",
-        "vuvarov",
-        "ytrunov",
-        "rnemykin",
-        "akovlyashenko",
-        "ilysenko",
-        "kafonin",
-        "ismorodin",
-        "kilichev",
-        "nbloshkin",
-        "achub"
+        "dsnimshchikov",
+        "dtoropchin",
+        "achebotarev",
+        "dkolvakh",
+        "asayapin"
+        // "ailin"
     ];
 
     usernames.forEach(function (item) {
