@@ -1,12 +1,14 @@
 /**
  * Created by vadmurzakov on 20.07.17.
  */
-LeaderBoard.controller('LiferayController', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope, $q) {
+LeaderBoard.controller('LiferayController', ['$scope', '$http', '$rootScope', function ($scope, $http) {
     console.log('LiferayController');
 
+    $scope.ckName = 'Liferay';
     $scope.progressBar = 0;
     $scope.users = [];
     $scope.isProgressBarShow = true;
+    $scope.countMonth = 3;
 
     var HOST_URI = /^(https?:\/\/)?([\da-z0-9\.\-:]+)/.exec(window.location.href)[0];
 
@@ -20,7 +22,7 @@ LeaderBoard.controller('LiferayController', ['$scope', '$http', '$rootScope', fu
     ];
 
     usernames.forEach(function (item) {
-        $http.get(HOST_URI + '/api/v1/user/' + item + '/month/6')
+        $http.get(HOST_URI + '/api/v1/user/' + item + '/month/' + $scope.countMonth)
             .then(function onSuccess(response) {
                 $scope.users.push(response.data);
                 $scope.progressBar += Math.ceil(100 / usernames.length);
