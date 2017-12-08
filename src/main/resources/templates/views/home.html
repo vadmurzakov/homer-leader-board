@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1><a href="/">Статистика по ЦК Homer</a> *</h1>
+    <h1><a href="/">Статистика по ЦК {{ckName}}</a> *</h1>
     <p class="lead">
         за последние {{countMonth}} месяцев
         <span class="right">
@@ -26,6 +26,14 @@
                     <a href="javascript:void(0)" ng-click="sortBy('fullname')">пользователь</a>
                     <span ng-show="propertyName == 'fullname' &amp;&amp; !reverse" class="fa fa-caret-down"></span>
                     <span ng-show="propertyName == 'fullname' &amp;&amp; reverse" class="fa fa-caret-up"></span>
+                </th>
+                <!--капасити-->
+                <th>
+                    <a href="javascript:void(0)">dev/bug</a>
+                    <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; !reverse"
+                          class="fa fa-caret-down"></span>
+                    <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; reverse"
+                          class="fa fa-caret-up"></span>
                 </th>
                 <!--разработка-->
                 <th>
@@ -102,6 +110,11 @@
                 <td ng-style="{'background-color':propertyName == 'fullname'?'rgba(217, 237, 247, 0.32)':''}">
                     <img src="{{user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
                     {{user.fullname}}
+                </td>
+                <!--капасити-->
+                <td ng-style="{'background-color':propertyName == 'issueStatistics[5].count'?'rgba(217, 237, 247, 0.32)':''}">
+                    {{((user.issueStatistics[5].time + user.issueStatistics[3].time) / ((user.issueStatistics[5].time + user.issueStatistics[2].time + user.issueStatistics[3].time) / 100)).toFixed(1)}}%   /
+                    {{(user.issueStatistics[2].time / ((user.issueStatistics[5].time + user.issueStatistics[2].time + user.issueStatistics[3].time) / 100)).toFixed(1)}}%
                 </td>
                 <!--разработка-->
                 <td ng-style="{'background-color':propertyName == 'issueStatistics[5].count'?'rgba(217, 237, 247, 0.32)':''}">
