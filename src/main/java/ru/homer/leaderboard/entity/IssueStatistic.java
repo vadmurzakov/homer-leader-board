@@ -24,11 +24,16 @@ public class IssueStatistic {
 
     private Issue issue;            //тип задачи
     private long count;             //количество
-    private double time;            //затраченное время
+    private Double time;            //затраченное время
 
-    public IssueStatistic(Issue issue, long count, double time) {
+    public IssueStatistic(Issue issue, long count, Double time) {
         this.issue = issue;
         this.count = count;
+        this.time = time;
+    }
+
+    public IssueStatistic(Issue issue, Double time) {
+        this.issue = issue;
         this.time = time;
     }
 }
