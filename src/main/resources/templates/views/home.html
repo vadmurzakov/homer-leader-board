@@ -32,43 +32,37 @@
                     <span ng-show="propertyName == 'fullname' &amp;&amp; reverse" class="fa fa-caret-up"></span>
                 </th>
                 <!--капасити-->
-                <th ng-show="capacity.isShow" class="text-center">
-                    <a href="javascript:void(0)">dev/bug</a>
-                    <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; !reverse"
-                          class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; reverse"
-                          class="fa fa-caret-up"></span>
-                </th>
+                <th ng-show="capacity.isShow" class="text-center">dev/bug</th>
                 <!--разработка-->
                 <th class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[5].time')" uib-tooltip="по времени">разработка</a>
-                    <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[7].time')" uib-tooltip="по времени">разработка</a>
+                    <span ng-show="propertyName == 'issueStatistics[7].time' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[5].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[7].time' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
                 <!--баги-->
                 <th class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[2].count')" uib-tooltip="по количеству">баги</a>
-                    <span ng-show="propertyName == 'issueStatistics[2].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[4].count')" uib-tooltip="по количеству">баги</a>
+                    <span ng-show="propertyName == 'issueStatistics[4].count' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[2].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[4].count' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
                 <!--аналитика-->
                 <th ng-show="analytic.isShow" class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[3].count')" uib-tooltip="по количеству">аналитика</a>
-                    <span ng-show="propertyName == 'issueStatistics[3].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[5].time')" uib-tooltip="по времени">аналитика</a>
+                    <span ng-show="propertyName == 'issueStatistics[5].time' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[3].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[5].time' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
                 <!--патчи-->
                 <th ng-show="patch.isShow" class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[4].count')" uib-tooltip="по количеству">патчи</a>
-                    <span ng-show="propertyName == 'issueStatistics[4].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[6].count')" uib-tooltip="по количеству">патчи</a>
+                    <span ng-show="propertyName == 'issueStatistics[6].count' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[4].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[6].count' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
                 <!--обычные баги-->
@@ -81,26 +75,26 @@
                 </th>
                 <!--продуктовые баги-->
                 <th class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[1].count')" uib-tooltip="по количеству">продуктовых багов</a>
-                    <span ng-show="propertyName == 'issueStatistics[1].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[2].count')" uib-tooltip="по количеству">продуктовых багов</a>
+                    <span ng-show="propertyName == 'issueStatistics[2].count' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[1].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[2].count' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
                 <!--в среднем на обычный баг-->
                 <th class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[0].time/issueStatistics[0].count')" uib-tooltip="по времени">в среднем на обычный баг</a>
-                    <span ng-show="propertyName == 'issueStatistics[0].time/issueStatistics[0].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[1].time')" uib-tooltip="по времени">в среднем на обычный баг</a>
+                    <span ng-show="propertyName == 'issueStatistics[1].time' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[0].time/issueStatistics[0].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[1].time' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
                 <!--в среднем на продуктовый баг-->
                 <th class="text-center">
-                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[1].time/issueStatistics[1].count')" uib-tooltip="по времени">в среднем на продуктовый баг</a>
-                    <span ng-show="propertyName == 'issueStatistics[1].time/issueStatistics[1].count' &amp;&amp; !reverse"
+                    <a href="javascript:void(0)" ng-click="sortBy('issueStatistics[3].time')" uib-tooltip="по времени">в среднем на продуктовый баг</a>
+                    <span ng-show="propertyName == 'issueStatistics[3].time' &amp;&amp; !reverse"
                           class="fa fa-caret-down"></span>
-                    <span ng-show="propertyName == 'issueStatistics[1].time/issueStatistics[1].count' &amp;&amp; reverse"
+                    <span ng-show="propertyName == 'issueStatistics[3].time' &amp;&amp; reverse"
                           class="fa fa-caret-up"></span>
                 </th>
 
@@ -108,48 +102,48 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in users | orderBy:propertyName:!reverse">
+            <tr ng-repeat="user in users | orderBy:propertyName:reverse">
                 <!--фио-->
                 <td ng-style="{'background-color':propertyName == 'fullname'?'rgba(217, 237, 247, 0.32)':''}">
                     <img src="{{user.avatarUri}}" class="img-circle" width="48" alt="avatar"/>
                     {{user.fullname}}
                 </td>
                 <!--капасити-->
-                <td ng-show="capacity.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[5].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{((user.issueStatistics[5].time + user.issueStatistics[3].time) / ((user.issueStatistics[5].time + user.issueStatistics[2].time + user.issueStatistics[3].time) / 100)).toFixed(1)}}%   /
-                    {{(user.issueStatistics[2].time / ((user.issueStatistics[5].time + user.issueStatistics[2].time + user.issueStatistics[3].time) / 100)).toFixed(1)}}%
+                <td ng-show="capacity.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[7].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{((user.issueStatistics[7].time + user.issueStatistics[5].time) / ((user.issueStatistics[7].time + user.issueStatistics[4].time + user.issueStatistics[5].time) / 100)).toFixed(1)}}%   /
+                    {{(user.issueStatistics[4].time / ((user.issueStatistics[7].time + user.issueStatistics[4].time + user.issueStatistics[5].time) / 100)).toFixed(1)}}%
                 </td>
                 <!--разработка-->
-                <td ng-style="{'background-color':propertyName == 'issueStatistics[5].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{user.issueStatistics[5].count}} шт за {{(user.issueStatistics[5].time / 60).toFixed(1)}} ч
+                <td ng-style="{'background-color':propertyName == 'issueStatistics[7].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[7].count}} шт за {{user.issueStatistics[7].time.toFixed(2)}} ч
                 </td>
                 <!--баги-->
-                <td ng-style="{'background-color':propertyName == 'issueStatistics[2].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{user.issueStatistics[2].count}} шт за {{(user.issueStatistics[2].time / 60).toFixed(1)}} ч
+                <td ng-style="{'background-color':propertyName == 'issueStatistics[4].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[4].count}} шт за {{user.issueStatistics[4].time.toFixed(2)}} ч
                 </td>
                 <!--аналитика-->
-                <td ng-show="analytic.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[3].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{user.issueStatistics[3].count}} шт за {{(user.issueStatistics[3].time / 60).toFixed(1)}} ч
+                <td ng-show="analytic.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[5].time'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[5].count}} шт за {{user.issueStatistics[5].time.toFixed(2)}} ч
                 </td>
                 <!--патчи-->
-                <td ng-show="patch.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[4].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{user.issueStatistics[4].count}} шт за {{(user.issueStatistics[4].time / 60).toFixed(1)}} ч
+                <td ng-show="patch.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[6].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[6].count}} шт за {{user.issueStatistics[6].time.toFixed(2)}} ч
                 </td>
                 <!--обычные баги-->
                 <td ng-style="{'background-color':propertyName == 'issueStatistics[0].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{user.issueStatistics[0].count}} шт за {{(user.issueStatistics[0].time / 60).toFixed(1)}} ч
+                    {{user.issueStatistics[0].count}} шт за {{user.issueStatistics[0].time.toFixed(2)}} ч
                 </td>
                 <!--продуктовые баги-->
-                <td ng-style="{'background-color':propertyName == 'issueStatistics[1].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{user.issueStatistics[1].count}} шт за {{(user.issueStatistics[1].time / 60).toFixed(1)}} ч
+                <td ng-style="{'background-color':propertyName == 'issueStatistics[2].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[2].count}} шт за {{user.issueStatistics[2].time.toFixed(2)}} ч
                 </td>
                 <!--в среднем на обычный баг-->
-                <td ng-style="{'background-color':propertyName == 'issueStatistics[0].time/issueStatistics[0].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{((user.issueStatistics[0].time / user.issueStatistics[0].count)/60).toFixed(1)}} ч
+                <td ng-style="{'background-color':propertyName == 'issueStatistics[1].time'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[1].time}} ч
                 </td>
                 <!--в среднем на продуктовый баг-->
-                <td ng-style="{'background-color':propertyName == 'issueStatistics[1].time/issueStatistics[1].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{((user.issueStatistics[1].time / user.issueStatistics[1].count)/60).toFixed(1)}} ч
+                <td ng-style="{'background-color':propertyName == 'issueStatistics[3].time'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
+                    {{user.issueStatistics[3].time}} ч
                 </td>
 
 

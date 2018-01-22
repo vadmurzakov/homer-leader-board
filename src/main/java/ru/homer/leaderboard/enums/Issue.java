@@ -12,7 +12,9 @@ public enum Issue {
     DEV("Разработка"),
     BUGS("Баги"),
     ANALYTICS("Аналитика"),
-    PATCH("Патчи");
+    PATCH("Патчи"),
+    AVG_SIMPLE_BUG("Average Simple Bug"),
+    AVG_PRODUCT_BUG("Average Product Bug");
 
     private String value;
 

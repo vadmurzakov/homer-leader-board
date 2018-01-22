@@ -13,6 +13,8 @@ import ru.homer.leaderboard.mapper.Mapper;
 import ru.homer.leaderboard.service.IssueService;
 import ru.homer.leaderboard.service.UserService;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,9 @@ public class JiraUserService implements UserService {
         List<IssueStatistic> issueStatistics = new ArrayList<>();
 
         issueStatistics.add(getStatisticByIssueType(Issue.SIMPLE_BUG, issues));
+        issueStatistics.add(getAvgStatisticByBug(Issue.AVG_SIMPLE_BUG, issueStatistics.get(issueStatistics.size() - 1)));
         issueStatistics.add(getStatisticByIssueType(Issue.PRODUCT_BUG, issues));
+        issueStatistics.add(getAvgStatisticByBug(Issue.AVG_PRODUCT_BUG, issueStatistics.get(issueStatistics.size() - 1)));
 
         issueStatistics.add(new IssueStatistic(
                 Issue.BUGS,
@@ -81,7 +85,7 @@ public class JiraUserService implements UserService {
                 time += issueDto.getWorkTime();
             }
         }
-        return new IssueStatistic(issue, count, time);
+        return new IssueStatistic(issue, count, new BigDecimal(time / 60).setScale(2, RoundingMode.UP).doubleValue());
     }
 
     private IssueStatistic getStatisticForDev(List<IssueStatistic> issueStatistic, List<IssueDto> issueDtos) {
@@ -106,7 +110,15 @@ public class JiraUserService implements UserService {
         return new IssueStatistic(
                 Issue.DEV,
                 count - countOtherIssue,
-                time - timeOtherIssue);
+                new BigDecimal((time - timeOtherIssue)/60).setScale(2,RoundingMode.UP).doubleValue());
+    }
+
+    private IssueStatistic getAvgStatisticByBug(Issue issue, IssueStatistic issueStatistic) {
+        Double avgTime = 0d;
+        if (issueStatistic.getCount() != 0) {
+            avgTime = new BigDecimal((issueStatistic.getTime() / issueStatistic.getCount())).setScale(2, RoundingMode.UP).doubleValue();
+        }
+        return new IssueStatistic(issue, avgTime);
     }
 
 }

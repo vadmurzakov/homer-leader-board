@@ -47,8 +47,8 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
             });
     });
 
-    // $scope.propertyName = 'fullname';
-    $scope.reverse = true;
+    $scope.propertyName = 'fullname';
+    $scope.reverse = false;
 
     $scope.sortBy = function(propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
