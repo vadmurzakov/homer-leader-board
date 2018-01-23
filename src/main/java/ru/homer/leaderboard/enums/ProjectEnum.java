@@ -8,7 +8,8 @@ import ru.homer.leaderboard.exception.ProjectEnumNotFound;
 public enum ProjectEnum {
     JHOMER("JHOMER"),
     SC("SC"),
-    JINTEG("JINTEG");
+    JINTEG("JINTEG"),
+    JIRASOL("JIRASOL");
 
     private String value;
 

@@ -110,8 +110,8 @@
                 </td>
                 <!--капасити-->
                 <td ng-show="capacity.isShow" ng-style="{'background-color':propertyName == 'issueStatistics[7].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">
-                    {{((user.issueStatistics[7].time + user.issueStatistics[5].time) / ((user.issueStatistics[7].time + user.issueStatistics[4].time + user.issueStatistics[5].time) / 100)).toFixed(1)}}%   /
-                    {{(user.issueStatistics[4].time / ((user.issueStatistics[7].time + user.issueStatistics[4].time + user.issueStatistics[5].time) / 100)).toFixed(1)}}%
+                    {{(user.issueStatistics[7].time / ((user.issueStatistics[7].time + user.issueStatistics[4].time) / 100)).toFixed(1)}}%   /
+                    {{(user.issueStatistics[4].time / ((user.issueStatistics[7].time + user.issueStatistics[4].time) / 100)).toFixed(1)}}%
                 </td>
                 <!--разработка-->
                 <td ng-style="{'background-color':propertyName == 'issueStatistics[7].count'?'rgba(217, 237, 247, 0.32)':''}" class="text-center">

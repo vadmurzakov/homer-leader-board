@@ -24,7 +24,7 @@ public class JqlRequestTest {
     @Test
     public void getUserAllIssuesQuery() throws Exception {
         String query = null;
-        query = jiraClientRequest.getAllIssuesByUserQuery("vmurzakov", 6);
+        query = jiraClientRequest.getAllIssuesByUserQuery("vmurzakov", "2018-01-01");
         assertFalse(StringUtils.isEmpty(query));
         query = jiraClientRequest.getAllIssuesByUserQuery("vmurzakov");
         assertFalse(StringUtils.isEmpty(query));

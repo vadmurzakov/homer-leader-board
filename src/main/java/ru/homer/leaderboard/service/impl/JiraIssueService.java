@@ -18,6 +18,7 @@ import ru.homer.leaderboard.service.IssueService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -51,21 +52,25 @@ public class JiraIssueService implements IssueService {
         return getAllIssuesByUser(user, month);
     }
 
-    private List<IssueDto> getAllIssuesByUser(String user, Integer month) {
+    private List<IssueDto> getAllIssuesByUser(String user, Integer countMonth) {
         List<Issue> issues = new ArrayList<>();
         SearchResult search;
 
         int startAt = jiraProperties.getStartAt();
         do {
-            search = getIssuesByUser(user, month, startAt);
-            search.getIssues().forEach(issues::add);
+            search = getIssuesByUser(user, countMonth, startAt);
+            search.getIssues().forEach(issue -> {
+                if (!"ACTIVITY".equals(issue.getProject().getKey())){
+                    issues.add(issue);
+                }
+            });
             startAt += jiraProperties.getMaxResults();
         } while (search.getTotal() > 0 && startAt < search.getTotal());
 
         List<IssueDto> issueDtos = new ArrayList<>();
         for (Issue issue : issues) {
             issueDtos.add(mapper.mapIssueDto(issue));
-            issueDtos.get(issueDtos.size() - 1).setWorkTime(getTimeInWorklogByIssue(issue, user));
+            issueDtos.get(issueDtos.size() - 1).setWorkTime(getTimeInWorklogByIssue(issue, user, countMonth));
         }
 
         return issueDtos;
@@ -75,13 +80,14 @@ public class JiraIssueService implements IssueService {
      * Возвращает результат поиска по задачам конкретного пользователя
      *
      * @param user    логин пользователя в jira
-     * @param month   если null, возвращает задачи за все время, иначе за последние month-месяцев
+     * @param countMonth   если null, возвращает задачи за все время, иначе за последние month-месяцев
      * @param startAt позиция поиска, т.к. задачи загружаются по 50шт за раз
      * @return
      */
-    private SearchResult getIssuesByUser(String user, Integer month, int startAt) {
+    private SearchResult getIssuesByUser(String user, Integer countMonth, int startAt) {
+
         return jiraRestClient.getSearchClient().searchJql(
-                jqlRequest.getAllIssuesByUserQuery(user, month),
+                jqlRequest.getAllIssuesByUserQuery(user, getDateFormatByCountMonth(countMonth)),
                 jiraProperties.getMaxResults(),
                 startAt,
                 jqlRequest.getFields()
@@ -89,16 +95,16 @@ public class JiraIssueService implements IssueService {
     }
 
     private int getTimeInWorklogByIssue(Issue issue) {
-        return getTimeInWorklogByIssue(issue, null);
+        return getTimeInWorklogByIssue(issue, null, null);
     }
 
-    private int getTimeInWorklogByIssue(Issue issue, String user) {
+    private int getTimeInWorklogByIssue(Issue issue, String user, Integer countMonth) {
         int timeInMins = 0;
         List<Worklog> worklogs = new ArrayList<>();
-        if (user != null) {
-            issue.getWorklogs().forEach(Worklog -> {
-                if (user.equals(Worklog.getAuthor().getName())) {
-                    worklogs.add(Worklog);
+        if (user != null && countMonth != null) {
+            issue.getWorklogs().forEach(worklog -> {
+                if (user.equals(worklog.getAuthor().getName()) && isIncludeRangeDate(worklog, countMonth)) {
+                    worklogs.add(worklog);
                 }
             });
         } else {
@@ -110,6 +116,21 @@ public class JiraIssueService implements IssueService {
         }
 
         return timeInMins;
+    }
+
+    private boolean isIncludeRangeDate(Worklog worklog, Integer countMonth) {
+        long millisWorklog = worklog.getStartDate().getMillis();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH,-countMonth);
+        return calendar.getTime().getTime() < millisWorklog;
+    }
+
+    private String getDateFormatByCountMonth(Integer countMonth) {
+        String DATE_FORMAT = "yyyy-MM-dd";
+        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(DATE_FORMAT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH,-countMonth);
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     @Override

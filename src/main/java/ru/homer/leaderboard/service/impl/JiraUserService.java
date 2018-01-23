@@ -43,7 +43,7 @@ public class JiraUserService implements UserService {
     @Override
     public UserDto getStatisticByUsername(String username, int countMonth) {
         UserDto userDto = getUserByUsername(username);
-        List<IssueDto> issues = jiraIssueService.getAllIssuesForLastMonthByUser(username, countMonth);
+        final List<IssueDto> issues = jiraIssueService.getAllIssuesForLastMonthByUser(username, countMonth);
         List<IssueStatistic> issueStatistics = new ArrayList<>();
 
         issueStatistics.add(getStatisticByIssueType(Issue.SIMPLE_BUG, issues));
@@ -53,8 +53,8 @@ public class JiraUserService implements UserService {
 
         issueStatistics.add(new IssueStatistic(
                 Issue.BUGS,
-                issueStatistics.get(0).getCount() + issueStatistics.get(1).getCount(),
-                issueStatistics.get(0).getTime() + issueStatistics.get(1).getTime()
+                issueStatistics.get(0).getCount() + issueStatistics.get(2).getCount(),
+                issueStatistics.get(0).getTime() + issueStatistics.get(2).getTime()
         ));
 
         issueStatistics.add(getStatisticByIssueType(Issue.ANALYTICS, issues));
@@ -98,10 +98,12 @@ public class JiraUserService implements UserService {
             }
         }
 
+        time = time / 60;
+
         long countOtherIssue = 0;
         double timeOtherIssue = 0;
         for (IssueStatistic issue : issueStatistic) {
-            if (issue.getIssue() != Issue.BUGS) {
+            if (issue.getIssue() != Issue.BUGS && issue.getIssue() != Issue.AVG_SIMPLE_BUG && issue.getIssue() != Issue.AVG_PRODUCT_BUG) {
                 countOtherIssue += issue.getCount();
                 timeOtherIssue += issue.getTime();
             }
@@ -110,7 +112,7 @@ public class JiraUserService implements UserService {
         return new IssueStatistic(
                 Issue.DEV,
                 count - countOtherIssue,
-                new BigDecimal((time - timeOtherIssue)/60).setScale(2,RoundingMode.UP).doubleValue());
+                new BigDecimal((time - timeOtherIssue)).setScale(2,RoundingMode.UP).doubleValue());
     }
 
     private IssueStatistic getAvgStatisticByBug(Issue issue, IssueStatistic issueStatistic) {

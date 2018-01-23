@@ -43,10 +43,10 @@ public class JqlRequest {
         }
     }
 
-    public String getAllIssuesByUserQuery(String user, Integer month) {
-        if (month != null) {
+    public String getAllIssuesByUserQuery(String user, String date) {
+        if (date != null) {
             String query = jql.getProperty("jql.user.getAllIssuesForLastMonth");
-            return MessageFormat.format(query, month, user);
+            return MessageFormat.format(query, date, user);
         } else {
             return getAllIssuesByUserQuery(user);
         }
