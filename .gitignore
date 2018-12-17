@@ -198,3 +198,12 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/maven,macos,bower,linux,angular,windows,intellij
+
+build
+.mvn
+mvnw*
+.idea
+*.iml
+bower_components/
+derby.log
+!/src/main/resources/config/
