@@ -16,15 +16,11 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
         "eplotnikov",
         "vmurzakov",
         "mnikolaenko",
-        "vuvarov",
         "ytrunov",
-        "rnemykin",
-        "akovlyashenko",
-        "ilysenko",
-        "kafonin",
-        "kilichev",
-        "nbloshkin",
-        "achub"
+        "aobuhov",
+        "rshvarev",
+        "azabenkov",
+        "mgrebnev"
     ];
 
     usernames.forEach(function (item) {
