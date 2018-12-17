@@ -58,7 +58,7 @@ public class JiraIssueService implements IssueService {
         int startAt = jiraProperties.getStartAt();
         do {
             search = getIssuesByUser(user, month, startAt);
-            search.getIssues().forEach(Issue -> issues.add(Issue));
+            search.getIssues().forEach(issues::add);
             startAt += jiraProperties.getMaxResults();
         } while (search.getTotal() > 0 && startAt < search.getTotal());
 
@@ -102,7 +102,7 @@ public class JiraIssueService implements IssueService {
                 }
             });
         } else {
-            issue.getWorklogs().forEach(Worklog -> worklogs.add(Worklog));
+            issue.getWorklogs().forEach(worklogs::add);
         }
 
         for (Worklog worklog : worklogs) {
@@ -132,7 +132,7 @@ public class JiraIssueService implements IssueService {
     public List<Worklog> getWorklogsByIssue(Issue issue) {
         List<Worklog> worklogs = new ArrayList<>();
         if (issue != null) {
-            issue.getWorklogs().forEach(Worklog -> worklogs.add(Worklog));
+            issue.getWorklogs().forEach(worklogs::add);
             return worklogs;
         }
         return worklogs;
