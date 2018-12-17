@@ -8,7 +8,7 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
     $scope.progressBar = 0;
     $scope.users = [];
     $scope.isProgressBarShow = true;
-    $scope.countMonth = 3;
+    $scope.countMonth = 6;
 
     var HOST_URI = /^(https?:\/\/)?([\da-z0-9\.\-:]+)/.exec(window.location.href)[0];
 
