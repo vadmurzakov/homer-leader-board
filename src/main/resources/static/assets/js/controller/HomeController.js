@@ -15,8 +15,8 @@ LeaderBoard.controller('HomeController', ['$scope', '$http', '$rootScope', funct
         button: 'danger'
     };
     $scope.analytic = {
-        isShow: false,
-        button: 'danger'
+        isShow: true,
+        button: 'success'
     };
     $scope.patch = {
         isShow: false,
